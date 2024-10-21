@@ -1,4 +1,4 @@
-package org.f5games.aiden_game.entities;
+package org.f5games.aiden_game.models;
 import java.util.List;
 
 import jakarta.persistence.Column;

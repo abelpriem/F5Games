@@ -26,7 +26,7 @@ public class GameObject {
     @Column(nullable = false)
     private String description;
     @Column(nullable = false)
-    private Boolean type;
+    private Boolean special;
     @OneToMany(mappedBy = "gameObject")
     private List<Backpack> backpacks;
 }

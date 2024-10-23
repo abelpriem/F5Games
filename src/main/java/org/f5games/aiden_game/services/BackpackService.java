@@ -10,15 +10,15 @@ public class BackpackService {
         return null;
     }
 
-    public void insert(Backpack backpack) {
+    public void insertOne(Backpack backpack) {
 
     }
 
-    public void update(Long objectId, Backpack backpack) {
+    public void updateOne(Long objectId, Backpack backpack) {
 
     }
 
-    public void delete(Long objectId) {
+    public void deleteOne(Long objectId) {
 
     }
 

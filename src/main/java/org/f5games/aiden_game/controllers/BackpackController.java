@@ -30,18 +30,18 @@ public class BackpackController {
     // AÑADIR OBJETO EN LA MOCHILA
     @PostMapping(path = "/backpack/{objectId}")
     public void addObject(@RequestBody Backpack backpack) {
-        services.insert(backpack);
+        services.insertOne(backpack);
     }
 
     // MODIFICAR OBJETO DE LA MOCHILA
     @PutMapping(path = "/backpack/{objectId}")
     public void updateObject(@PathVariable Long objectId, @RequestBody Backpack backpack) {
-        services.update(objectId, backpack);
+        services.updateOne(objectId, backpack);
     }
 
     // ELIMINAR OBJETO DE LA MOCHILA
     @DeleteMapping(path = "/backpack/{objectId}")
     public void deleteObject(@PathVariable Long objectId) {
-        services.delete(objectId);
+        services.deleteOne(objectId);
     }
 }

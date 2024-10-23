@@ -1,4 +1,5 @@
 package org.f5games.aiden_game.models;
+
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -8,10 +9,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name="game_objects")
+@Table(name = "game_objects")
 @Data
 @Builder
 @AllArgsConstructor
@@ -20,7 +24,7 @@ public class GameObject {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     @Column(nullable = false)
     private String name;
     @Column(nullable = false)

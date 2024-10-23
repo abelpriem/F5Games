@@ -20,7 +20,7 @@ public class GameObject {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     @Column(nullable = false)
     private String name;
     @Column(nullable = false)

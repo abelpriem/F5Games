@@ -18,7 +18,7 @@ import lombok.*;
 public class Backpack {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     @ManyToOne
     @JoinColumn(name="game_object_id")
     private GameObject gameObject;

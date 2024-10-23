@@ -17,13 +17,13 @@ public class Character {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     @Column(nullable = false)
     private String name;
     @Column(nullable = false)
-    private Integer strength;
+    private Long strength;
     @Column(nullable = false)
-    private Integer health;
+    private Long health;
     
 
 

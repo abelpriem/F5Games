@@ -18,15 +18,15 @@ public class BackpackService {
     }
 
     public void insertOne(Backpack backpack) {
-        backpackRepository.insertOne(backpack);
+        backpackRepository.save(backpack);
     }
 
     public void updateOne(Long objectId, Backpack backpack) {
-        backpackRepository.updateOne(objectId, backpack);
+        backpackRepository.save(backpack);
     }
 
     public void deleteOne(Long objectId) {
-        backpackRepository.deleteOne(objectId);
+        backpackRepository.deleteById(objectId);
     }
 
 }

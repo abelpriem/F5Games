@@ -13,5 +13,3 @@ INSERT INTO game_objects (name,description,special) VALUES ('Collar de ajos','Ev
 INSERT INTO game_objects (name,description,special) VALUES ('Capa de invisibilidad','Impide que el enemigo te vea',true);
 
 INSERT INTO backpacks (game_object_id) VALUES (1);
-INSERT INTO backpacks (game_object_id) VALUES (1);
-INSERT INTO backpacks (game_object_id) VALUES (1);

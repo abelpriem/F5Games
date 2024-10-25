@@ -30,7 +30,7 @@ public class BackpackService {
             throw new IllegalArgumentException("GameObject id cannot be null");
         }
         GameObject gameObject = gameObjectRepository.findById(objectId).orElseThrow(() -> new IllegalArgumentException("GameObject not found with id "+objectId));
-        return backpackRepository.save(new Backpack().builder().gameObject(gameObject).build());
+        return backpackRepository.save(Backpack.builder().gameObject(gameObject).build());
     }
 
     public Backpack updateOne(Long id, Long objectId) {
@@ -42,7 +42,7 @@ public class BackpackService {
         }
         backpackRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Backpack identifier "+id+" not found"));
         GameObject gameObject = gameObjectRepository.findById(objectId).orElseThrow(() -> new IllegalArgumentException("GameObject not found with id "+objectId));
-        return backpackRepository.save(new Backpack().builder().id(id).gameObject(gameObject).build());
+        return backpackRepository.save(Backpack.builder().id(id).gameObject(gameObject).build());
     }
 
     public void deleteOne(Long id) {

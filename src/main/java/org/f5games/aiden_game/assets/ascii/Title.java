@@ -1,5 +1,5 @@
 // Source code is decompiled from a .class file using FernFlower decompiler.
-package org.f5games.aiden_game.ascii;
+package org.f5games.aiden_game.assets.ascii;
 
 public class Title {
 

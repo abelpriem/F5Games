@@ -1,10 +1,10 @@
 package org.f5games.aiden_game.services;
-
 import java.util.List;
-
 import org.f5games.aiden_game.models.Backpack;
 import org.f5games.aiden_game.repository.BackpackRepository;
+import org.springframework.stereotype.Service;
 
+@Service
 public class BackpackService {
 
     private final BackpackRepository backpackRepository;

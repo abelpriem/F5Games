@@ -1,4 +1,4 @@
-package org.f5games.aiden_game.ascii;
+package org.f5games.aiden_game.assets.ascii;
 
 public class Forest {
     public static void main(String[] args) {

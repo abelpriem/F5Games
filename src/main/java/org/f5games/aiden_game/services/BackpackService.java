@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.f5games.aiden_game.models.Backpack;
 import org.f5games.aiden_game.models.GameObject;
-import org.f5games.aiden_game.repositories.BackpackRepository;
-import org.f5games.aiden_game.repositories.GameObjectRepository;
+import org.f5games.aiden_game.repository.BackpackRepository;
+import org.f5games.aiden_game.repository.GameObjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

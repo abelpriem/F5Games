@@ -9,7 +9,7 @@ import jakarta.persistence.Table;
 import lombok.*;
 
 @Entity
-@Table(name="game_objects")
+@Table(name = "game_objects")
 @Data
 @Builder
 @AllArgsConstructor

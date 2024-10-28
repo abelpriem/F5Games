@@ -1,5 +1,5 @@
 package org.f5games.aiden_game.controllers;
 
-public class CharacterController {
+public class CharacterControllerTest {
 
 }

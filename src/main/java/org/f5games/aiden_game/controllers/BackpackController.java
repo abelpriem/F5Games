@@ -30,8 +30,8 @@ public class BackpackController {
     }
 
     // AÑADIR OBJETO EN LA MOCHILA
-    @PostMapping(path = "/backpack/{objectId}")
-    public ResponseEntity<Backpack> addObject(@PathVariable Long objectId) {
+    @PostMapping(path = "/backpack")
+    public ResponseEntity<Backpack> addObject(@RequestParam Long objectId) {
         return new ResponseEntity<>(services.insertOne(objectId),HttpStatus.CREATED);
     }
 

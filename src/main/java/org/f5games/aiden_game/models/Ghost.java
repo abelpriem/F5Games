@@ -31,7 +31,7 @@ public class Ghost extends Character{
 
         Random rand = new Random();
         int randomInvisibility = rand.nextInt(100) + 1; 
-        if(randomInvisibility < 30){
+        if(randomInvisibility <= 30){
 
             return true;
         }

@@ -29,6 +29,9 @@ public class BackpackService {
         if(objectId==null){
             throw new IllegalArgumentException("GameObject id cannot be null");
         }
+        if(backpackRepository.count()>=3){
+            throw new IllegalArgumentException("Backpack is full");
+        }
         GameObject gameObject = gameObjectRepository.findById(objectId).orElseThrow(() -> new IllegalArgumentException("GameObject not found with id "+objectId));
         return backpackRepository.save(Backpack.builder().gameObject(gameObject).build());
     }

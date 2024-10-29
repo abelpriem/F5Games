@@ -18,27 +18,29 @@ public class GameMenu {
 
     public void start() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Bienvenido al combate de Aiden!");
+        System.out.println("Bienvenido a: La Noche De Los Espiritus!");
         System.out.println("1. Iniciar combate");
         System.out.println("2. Salir");
 
         int choice = scanner.nextInt();
         if (choice == 1) {
-            // Obtener personajes (Aiden y un monstruo aleatorio) desde el servicio
+            // Obtener personajes (Aiden y un esqueleto) desde el servicio
             Character aiden = characterService.getCharacterByName("Aiden");
-            Character monster = characterService.getRandomMonster();
-            fight(aiden, monster);
+            Character skeleton = characterService.getSkeleton("Esqueleto");
+            fight(aiden, skeleton);
         } else {
             System.out.println("Has salido del juego.");
         }
+        scanner.close();
     }
 
-    private void fight(Character aiden, Character monster) {
+    private void fight(Character aiden, Character skeleton) {
         Scanner scanner = new Scanner(System.in);
+        int numEsqueletos = 3;
         System.out.println("Combate iniciado!");
 
-        while (aiden.getHealth() > 0 && monster.getHealth() > 0) {
-            displayStatus(aiden, monster);
+        while (aiden.getHealth() > 0 && numEsqueletos > 0) {
+            displayStatus(aiden, skeleton);
 
             // Turno de Aiden
             System.out.println("Es tu turno. Elige una acción:");
@@ -47,23 +49,28 @@ public class GameMenu {
             int action = scanner.nextInt();
 
             if (action == 1) {
-                attack(aiden, monster);
+                attack(aiden, skeleton);
             } else if (action == 2) {
                 // Aquí podrías añadir lógica para usar un objeto del Backpack
                 System.out.println("Usar Objeto - Esta funcionalidad está en desarrollo.");
             }
 
             // Turno del monstruo si sigue vivo
-            if (monster.getHealth() > 0) {
-                monsterAttack(aiden, monster);
+            if (skeleton.getHealth() > 0) {
+                monsterAttack(aiden, skeleton);
+            } else if (skeleton.getHealth() <= 0) {
+                System.out.println("Aiden ha derrotado un esqueleto!!");
+                skeleton.setHealth(30);
+                numEsqueletos --;
             }
         }
 
         if (aiden.getHealth() <= 0) {
             System.out.println("Aiden ha sido derrotado!");
-        } else if (monster.getHealth() <= 0) {
+        } else if (skeleton.getHealth() <= 0) {
             System.out.println("Has derrotado al monstruo!");
         }
+        scanner.close();
     }
 
     private void displayStatus(Character aiden, Character monster) {

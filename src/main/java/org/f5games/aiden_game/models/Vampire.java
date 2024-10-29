@@ -38,8 +38,4 @@ public class Vampire extends Character {
         this.skill1 = skill1;
     }
 
-    //// método propio de Vampire ////
-    public boolean stealHealth() {
-        return true;
-    }
 }

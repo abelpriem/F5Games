@@ -1,7 +1,7 @@
 INSERT INTO characters (id,name,strength,health) VALUES (default,'Aiden',15,100);
 INSERT INTO characters (id,name,strength,health) VALUES (default,'Esqueleto',5,30);
 INSERT INTO characters (id,name,strength,health) VALUES (default,'Fantasma',7,75);
-INSERT INTO characters (id,name,strength,health) VALUES (default,'Vampiro',10,100);
+INSERT INTO characters (id,name,strength,health) VALUES (default,'Vampiro',15,100);
 INSERT INTO characters (id,name,strength,health) VALUES (default,'Mortis',50,200);
 
 INSERT INTO game_objects (id,name,description,special) VALUES (default,'Espada encantada','Aumenta el daño del héroe',false);

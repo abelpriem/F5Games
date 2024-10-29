@@ -1,5 +1,6 @@
 package org.f5games.aiden_game.services;
 
+import org.f5games.aiden_game.assets.ascii.Skeletons;
 import org.f5games.aiden_game.models.Character;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -19,7 +20,21 @@ public class GameMenu {
     public void start() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Bienvenido a: La Noche De Los Espiritus!");
-        System.out.println("1. Iniciar combate");
+        System.out.println("""
+                En un pequeño y remoto pueblo rodeado de densos bosques, cada año, en la noche de
+            Halloween, las barreras entre el mundo de los vivos y los muertos se debilitan. Esta
+            noche, el malvado hechicero Mortis ha decidido desatar a las criaturas más temidas de
+            la oscuridad: esqueletos, fantasmas y vampiros. Su objetivo es apoderarse del alma del
+            pueblo y sumergirlo en un eterno estado de terror.
+        
+            El pueblo, que en su día era alegre, se ha convertido en un lugar de miedo y
+            desesperación. Sin embargo, en medio de la oscuridad, surge un héroe: Aiden, un joven
+            valiente con un espíritu indomable. Con un legado de guerreros ancestrales, Aiden debe
+            enfrentarse a las criaturas de Mortis y restaurar la paz antes de que el reloj marque la
+            medianoche........
+                """);
+            
+        System.out.println("1. Iniciar juego");
         System.out.println("2. Salir");
 
         int choice = scanner.nextInt();
@@ -37,6 +52,9 @@ public class GameMenu {
     private void fight(Character aiden, Character skeleton) {
         Scanner scanner = new Scanner(System.in);
         int numEsqueletos = 3;
+        System.out.println("Algo se mueve en la oscuridad de la noche...");
+        System.out.println("Se esuchan sonidos emitidos por seres extraños...");
+        Skeletons.SkeletonsASCII();
         System.out.println("Combate iniciado!");
 
         while (aiden.getHealth() > 0 && numEsqueletos > 0) {

@@ -18,4 +18,3 @@ public class AidenGameApplication {
         return args -> gameMenu.start();
     }
 }
-

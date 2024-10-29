@@ -26,4 +26,15 @@ public class CharacterService {
             throw new IllegalArgumentException("character identifier" + character.getId() + "doesn't exist");
         }
     }
+
+    public Character getCharacterByName(String name) {
+        return characterRepository.findByName(name)
+                .orElseThrow(() -> new IllegalArgumentException("No se encontró un personaje con el nombre: " + name));
+    }
+
+    public Character getRandomMonster() {
+        // Aquí puedes personalizar cómo seleccionar un monstruo aleatorio
+        List<Character> monsters = characterRepository.findAll(); // O usa un método que filtre solo monstruos
+        return monsters.get((int) (Math.random() * monsters.size()));
+    }
 }

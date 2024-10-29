@@ -19,9 +19,9 @@ public class CharacterService {
         return characterRepository.findAll();
     }
 
-    public void updateOne(Character character) {
+    public Character updateOne(Character character) {
         if (characterRepository.existsById(character.getId())) {
-            characterRepository.save(character);
+            return characterRepository.save(character);
         } else {
             throw new IllegalArgumentException("character identifier" + character.getId() + "doesn't exist");
         }

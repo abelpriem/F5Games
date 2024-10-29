@@ -5,9 +5,9 @@ public class Intro {
         System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -");
         System.out.println("- -        ¡Bienvenido al juego de La Noche De Los Espíritus!           - -");
         System.out.println("- -                                                                     - -");
-        System.out.println("- - Intrucciones: 3 niveles completos: Bosque, Cementerio y Castillo    - -");
+        System.out.println("- - Intrucciones: 3 niveles completos -> Bosque, Cementerio y Castillo  - -");
         System.out.println("- - Aiden comienza con MOCHILA VACÍA [ _ , _ , _ ]                      - -");
-        System.out.println("- - Habrá un jefe por cada nivel hasta llegar al jefe final MORTIS      - -");
+        System.out.println("- - Habrá un jefe por cada nivel hasta llegar al jefe final, MORTIS     - -");
         System.out.println("- -                                                                     - -");
         System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -");
     }

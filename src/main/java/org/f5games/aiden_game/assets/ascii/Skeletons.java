@@ -4,7 +4,7 @@ public class Skeletons {
     public static void main(String[] args) {
         System.out.println();
         System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - -");
-        System.out.println("                   Jefe: Esqueletos");
+        System.out.println("                Jefe: 3x Esqueletos");
         System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - -");
         System.out.print("      .-.            .-.             .-.     \n" + //
                 "     (o.o).         (o.o).          (o.o)\n" + //

@@ -1,5 +1,8 @@
 package org.f5games.aiden_game.repository;
 
-public class CharacterRepository {
+import org.f5games.aiden_game.models.Character;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface CharacterRepository extends JpaRepository<Character, Long> {
 
 }

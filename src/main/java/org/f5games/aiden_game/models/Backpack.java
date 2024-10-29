@@ -18,7 +18,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class Backpack {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

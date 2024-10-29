@@ -25,7 +25,7 @@ public class CharacterController {
         return characterservice.getAll();
     }
 
-    @PutMapping(path = "/character{id}")
+    @PutMapping(path = "/character")
     public ResponseEntity<Character> updateCharacter(@RequestBody Character character) {
         return new ResponseEntity<>(characterservice.updateOne(character),HttpStatus.OK);
     }

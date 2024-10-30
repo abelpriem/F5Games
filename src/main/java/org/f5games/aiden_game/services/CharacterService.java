@@ -27,13 +27,8 @@ public class CharacterService {
         }
     }
 
-    public Character getCharacterByName(String name) {
-        return characterRepository.findByName(name)
-                .orElseThrow(() -> new IllegalArgumentException("No se encontró un personaje con el nombre: " + name));
-    }
-
-    public Character getSkeleton(String name) {
-        return characterRepository.findByName(name)
-                .orElseThrow(() -> new IllegalArgumentException("No se encontró un personaje con el nombre: " + name));
+    public Character getCharacterById(Long id) {
+        return characterRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("No se encontró un personaje con el ID: " + id));
     }
 }

@@ -40,8 +40,8 @@ public class GameMenu {
         int choice = scanner.nextInt();
         if (choice == 1) {
             // Obtener personajes (Aiden y un esqueleto) desde el servicio
-            Character aiden = characterService.getCharacterByName("Aiden");
-            Character skeleton = characterService.getSkeleton("Esqueleto");
+            Character aiden = characterService.getCharacterById(1L);
+            Character skeleton = characterService.getCharacterById(2L);
             fight(aiden, skeleton);
         } else {
             System.out.println("Has salido del juego.");

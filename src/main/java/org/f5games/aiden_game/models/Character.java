@@ -21,7 +21,6 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Character {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -31,5 +30,4 @@ public class Character {
     private Integer strength;
     @Column(nullable = false)
     private Integer health;
-
 }

@@ -1,13 +1,10 @@
 package org.f5games.aiden_game.services;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
-import org.f5games.aiden_game.models.Aiden;
 import org.f5games.aiden_game.models.Character;
-import org.f5games.aiden_game.models.Ghost;
-import org.f5games.aiden_game.models.Skeleton;
 import org.f5games.aiden_game.repository.CharacterRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,18 +12,9 @@ public class CharacterService {
 
     private final CharacterRepository characterRepository;
 
-    public CharacterService (CharacterRepository character_repository) {
-        this.characterRepository = character_repository;
-    }
-
-    public Aiden findAiden(){
-        return characterRepository.findAll().stream().filter(Aiden.class::isInstance).map(Aiden.class::cast).collect(Collectors.toList()).get(0);
-    }
-    public Skeleton findSkeleton(){
-        return characterRepository.findAll().stream().filter(Skeleton.class::isInstance).map(Skeleton.class::cast).collect(Collectors.toList()).get(0);
-    }
-    public Ghost findGhost(){
-        return characterRepository.findAll().stream().filter(Ghost.class::isInstance).map(Ghost.class::cast).collect(Collectors.toList()).get(0);
+    @Autowired
+    public CharacterService (CharacterRepository characterRepository) {
+        this.characterRepository = characterRepository;
     }
 
     public List<Character> getAll() {
@@ -39,5 +27,10 @@ public class CharacterService {
         } else {
             throw new IllegalArgumentException("character identifier" + character.getId() + "doesn't exist");
         }
+    }
+
+    public Character getCharacterById(Long id) {
+        return characterRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("No se encontró un personaje con el ID: " + id));
     }
 }

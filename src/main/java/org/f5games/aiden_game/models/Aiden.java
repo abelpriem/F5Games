@@ -1,44 +1,22 @@
 package org.f5games.aiden_game.models;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
+
+@Entity
+@DiscriminatorValue("AIDEN")
+@SuperBuilder
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class Aiden extends Character {
-    private long id;
+    @Column(nullable = false)
     private int score;
-
-    public Aiden(long id, String name, int health, int strength, int score) {
-        super(id, name, health, strength);
-        this.id = id;
-        this.score = score;
-    }
-
-    public Aiden(long id, int score) {
-        this.id = id;
-        this.score = score;
-    }
-
-    public Aiden() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public int getScore() {
-        return score;
-    }
-
-    public void setScore(int score) {
-        this.score = score;
-    }
-
-    public boolean specialAttack() {
-        return true;
-    }
-
-    public boolean shield() {
-        return true;
-    }
 }

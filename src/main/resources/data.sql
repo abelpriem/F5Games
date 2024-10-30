@@ -1,8 +1,8 @@
-INSERT INTO characters (id,name,strength,health) VALUES (default,'Aiden',15,100);
-INSERT INTO characters (id,name,strength,health) VALUES (default,'Esqueleto',5,30);
-INSERT INTO characters (id,name,strength,health) VALUES (default,'Fantasma',7,75);
-INSERT INTO characters (id,name,strength,health) VALUES (default,'Vampiro',15,100);
-INSERT INTO characters (id,name,strength,health) VALUES (default,'Mortis',50,200);
+INSERT INTO characters (id,name,strength,health,entity_class,score) VALUES (default,'Aiden',15,100,'AIDEN',0);
+INSERT INTO characters (id,name,strength,health,entity_class,score) VALUES (default,'Esqueleto',5,30,'SKELETON',0);
+INSERT INTO characters (id,name,strength,health,entity_class,score) VALUES (default,'Fantasma',7,75,'GHOST',0);
+INSERT INTO characters (id,name,strength,health,entity_class,score) VALUES (default,'Vampiro',15,100,'VAMPIRE',0);
+INSERT INTO characters (id,name,strength,health,entity_class,score) VALUES (default,'Mortis',50,200,'SKELETON',0);
 
 INSERT INTO game_objects (id,name,description,special) VALUES (default,'Espada encantada','Aumenta el daño del héroe',false);
 INSERT INTO game_objects (id,name,description,special) VALUES (default,'Poción de vida','Restaura la salud',false);

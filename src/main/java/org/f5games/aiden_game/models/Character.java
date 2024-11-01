@@ -1,5 +1,8 @@
 package org.f5games.aiden_game.models;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.DiscriminatorType;
@@ -13,6 +16,17 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+@JsonTypeInfo(
+    use = JsonTypeInfo.Id.NAME,
+    include = JsonTypeInfo.As.PROPERTY,
+    property = "entity_class"
+)
+@JsonSubTypes({
+    @JsonSubTypes.Type(value = Aiden.class, name = "AIDEN"),
+    @JsonSubTypes.Type(value = Skeleton.class, name = "SKELETON"),
+    @JsonSubTypes.Type(value = Ghost.class, name = "GHOST"),
+    @JsonSubTypes.Type(value = Vampire.class, name = "VAMPIRE")
+})
 @Entity
 @DiscriminatorColumn(name = "entity_class", discriminatorType = DiscriminatorType.STRING)
 @Table(name = "characters")

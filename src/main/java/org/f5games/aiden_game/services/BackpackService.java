@@ -6,17 +6,14 @@ import org.f5games.aiden_game.models.Backpack;
 import org.f5games.aiden_game.models.GameObject;
 import org.f5games.aiden_game.repository.BackpackRepository;
 import org.f5games.aiden_game.repository.GameObjectRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class BackpackService {
 
-
     private final BackpackRepository backpackRepository;
     private final GameObjectRepository gameObjectRepository;
 
-    @Autowired
     public BackpackService(BackpackRepository backpackRepository,GameObjectRepository gameObjectRepository) {
         this.backpackRepository = backpackRepository;
         this.gameObjectRepository = gameObjectRepository;

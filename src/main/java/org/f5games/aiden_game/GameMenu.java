@@ -3,7 +3,6 @@ package org.f5games.aiden_game;
 import org.f5games.aiden_game.assets.ascii.Skeletons;
 import org.f5games.aiden_game.models.Character;
 import org.f5games.aiden_game.services.CharacterService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
@@ -13,7 +12,6 @@ public class GameMenu {
 
     private final CharacterService characterService;
 
-    @Autowired
     public GameMenu(CharacterService characterService) {
         this.characterService = characterService;
     }

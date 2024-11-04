@@ -2,12 +2,16 @@ package org.f5games.aiden_game.assets.ascii;
 
 public class Castle {
     public static void main(String[] args) {
+
+        String azul = "\033[1;36m";
+        String reset = "\033[0m";
+
         System.out.println();
-        System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -");
+        System.out.println(azul + "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -");
         System.out.print("   /\\                                                        /\\\n" + //
                 "  |  |                                                      |  |\n" + //
-                " /----\\                 Castillo de Morti                  /----\\\n" + //
-                "[______]              Nivel 3: Nivel Final                [______]\n" + //
+                " /----\\           "+reset+"       Castillo de Morti" + azul + "                 /----\\\n" + //
+                "[______]        "+reset+"       Nivel 3: Nivel Final "+ azul + "              [______]\n" + //
                 " |    |         _____                        _____         |    |\n" + //
                 " |[]  |        [     ]                      [     ]        |  []|\n" + //
                 " |    |       [_______][ ][ ][ ][][ ][ ][ ][_______]       |    |\n" + //
@@ -22,6 +26,6 @@ public class Castle {
                 " /''           |     |   |o     ||     o|   |     |           ''\\\n" + //
                 "[_____________[_______]--'------''------'--[_______]_____________]");
         System.out.println();
-        System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -");
+        System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"+ reset);
     }
 }

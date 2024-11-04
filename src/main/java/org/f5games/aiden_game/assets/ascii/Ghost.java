@@ -2,10 +2,14 @@ package org.f5games.aiden_game.assets.ascii;
 
 public class Ghost {
     public static void main(String[] args) {
+
+        String azul = "\033[1;36m";
+        String reset = "\033[0m";
+
         System.out.println();
-        System.out.println("- - - - - - - - - - -");
+        System.out.println(azul + "- - - - - - - - - - -" + reset);
         System.out.println("    Jefe: Fantasma");
-        System.out.println("- - - - - - - - - - -");
+        System.out.println(azul + "- - - - - - - - - - -");
         System.out.print("     .-----.\n" + //
                 "   .' -   - '.\n" + //
                 "  /  .-. .-.  \\\n" + //
@@ -24,6 +28,6 @@ public class Ghost {
                 "   jgs     ,__) /\n" + //
                 "            `..'");
         System.out.println();
-        System.out.println("- - - - - - - - - - -");
+        System.out.println("- - - - - - - - - - -" + reset);
     }
 }

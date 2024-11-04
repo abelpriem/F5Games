@@ -2,10 +2,14 @@ package org.f5games.aiden_game.assets.ascii;
 
 public class Morti {
     public static void main(String[] args) {
+
+        String azul = "\033[1;36m";
+        String reset = "\033[0m";
+
         System.out.println();
-        System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - - - -");
+        System.out.println(azul + "- - - - - - - - - - - - - - - - - - - - - - - - - - -" + reset);
         System.out.println("                 Jefe Final: Morti");
-        System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - - - -");
+        System.out.println(azul + "- - - - - - - - - - - - - - - - - - - - - - - - - - -");
         System.out.print("         .            )        )\n" + //
                 "                  (  (|              .\n" + //
                 "              )   )\\/ ( ( (\n" + //
@@ -39,6 +43,6 @@ public class Morti {
                 " \\..)   (_..  ..  :    :  : .(   \\..:..    ./__.  ./\n" + //
                 "            ^    ^      \\^ ^           ^\\/^     ^ JaL");
         System.out.println();
-        System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - - - -");
+        System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - - - -" + reset);
     }
 }

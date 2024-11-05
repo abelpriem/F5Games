@@ -1,8 +1,5 @@
 package org.f5games.aiden_game.models;
 
-import java.util.List;
-import org.f5games.aiden_game.controllers.BackpackController;
-import org.springframework.beans.factory.annotation.Autowired;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,33 +25,5 @@ public class Backpack {
     @ManyToOne
     @JoinColumn(name = "game_object_id")
     private GameObject gameObject;
-
-    @Autowired
-    private BackpackController backpackController;
-
-    // Método que lista la mochila
-    public List<Backpack> viewBackpack() {
-        // Aquí estamos llamando al controlador, lo cual no es lo ideal
-        return backpackController.retrieveObjects().getBody();
-    }
-
-    // Método que añade un objeto
-    public void addBackpack(Long objectId) {
-        // Aquí estamos llamando al controlador, lo cual no es lo ideal
-        backpackController.addObject(objectId);
-    }
-
-    // Método que modifica un objeto
-    public void updateBackpack(Long id, Long objectId) {
-        // Aquí estamos llamando al controlador, lo cual no es lo ideal
-        backpackController.updateObject(id, objectId);
-    }
-
-
-    // Método que modifica un objeto
-    public void deleteBackpack(Long id) {
-        // Aquí estamos llamando al controlador, lo cual no es lo ideal
-        backpackController.deleteObject(id);
-    }
 
 }

@@ -1,7 +1,6 @@
 package org.f5games.aiden_game.controllers;
 
 import java.util.List;
-
 import org.f5games.aiden_game.models.Character;
 import org.f5games.aiden_game.services.CharacterService;
 import org.springframework.http.HttpStatus;
@@ -29,4 +28,16 @@ public class CharacterController {
     public ResponseEntity<Character> updateCharacter(@RequestBody Character character) {
         return new ResponseEntity<>(characterservice.updateOne(character),HttpStatus.OK);
     }
+
+    @PutMapping(path = "/character/attack")
+    public ResponseEntity<Character> attack(@RequestBody Character character,@RequestBody Character target) {
+        return new ResponseEntity<>(characterservice.attack(character,target),HttpStatus.OK);
+    }
+
+        
+        
 }
+
+
+
+

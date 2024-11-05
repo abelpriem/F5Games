@@ -1,44 +1,54 @@
 package org.f5games.aiden_game;
 
+import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 import org.f5games.aiden_game.assets.ascii.Forest;
 import org.f5games.aiden_game.assets.ascii.GameOver;
 import org.f5games.aiden_game.assets.ascii.Skeletons;
 import org.f5games.aiden_game.assets.ascii.Title;
+import org.f5games.aiden_game.models.Backpack;
 import org.f5games.aiden_game.models.Character;
+import org.f5games.aiden_game.models.GameObject;
+import org.f5games.aiden_game.services.BackpackService;
 import org.f5games.aiden_game.services.CharacterService;
-// import org.springframework.beans.factory.annotation.Autowired;
+import org.f5games.aiden_game.services.GameObjectService;
 import org.springframework.stereotype.Component;
-
-import lombok.val;
 
 @Component
 public class GameMenu {
     private int turnsUntilPowerAttackAvailable;
     private int turnsUntilShieldActive;
     private boolean isShieldActive = false;
-    
-    String color1 = "\033[96m";  // cian
-    String color1b = "\033[1;96m";  // cian bold
-    String color2 = "\033[35m";  // magenta
-    String color3 = "\033[94m";  // azul
-    String color4 = "\033[91m";  // rojo
-    String color5 = "\033[92m";  // verde
-    String color6 = "\033[97m";  // blanco
-    String color7 = "\033[93m";  // amarillo
+
+    String color1 = "\033[96m"; // cian
+    String color1b = "\033[1;96m"; // cian bold
+    String color2 = "\033[35m"; // magenta
+    String color3 = "\033[94m"; // azul
+    String color4 = "\033[91m"; // rojo
+    String color5 = "\033[92m"; // verde
+    String color6 = "\033[97m"; // blanco
+    String color7 = "\033[93m"; // amarillo
     String color10 = "\033[38;5;206;48;5;57m";
-    String reset = "\033[0m";  // blanco
+    String reset = "\033[0m"; // blanco
 
     private final CharacterService characterService;
+    private final BackpackService backpackService;
+    private final GameObjectService objectService;
 
     // @Autowired
-    public GameMenu(CharacterService characterService) {
+    public GameMenu(CharacterService characterService, BackpackService backpackService,
+            GameObjectService objectService) {
         this.characterService = characterService;
+        this.backpackService = backpackService;
+        this.objectService = objectService;
     }
 
     public void start() {
+        boolean startGame = false;
         Scanner scanner = new Scanner(System.in);
 
         Title.main(null);
@@ -47,44 +57,59 @@ public class GameMenu {
                 En un pequeño y remoto pueblo rodeado de densos bosques, cada año, en la noche de
                 Halloween, las barreras entre el mundo de los vivos y los muertos se debilitan.
 
-                Esta noche, el malvado hechicero Mortis ha decidido desatar a las criaturas más 
-                temidas de la oscuridad: esqueletos, fantasmas y vampiros. Su objetivo es apoderarse 
+                Esta noche, el malvado hechicero Mortis ha decidido desatar a las criaturas más
+                temidas de la oscuridad: esqueletos, fantasmas y vampiros. Su objetivo es apoderarse
                 del alma del pueblo y sumergirlo en un eterno estado de terror.
 
-                El pueblo, que en su día era alegre, se ha convertido en un lugar de miedo y 
+                El pueblo, que en su día era alegre, se ha convertido en un lugar de miedo y
                 desesperación. Sin embargo, en medio de la oscuridad, surge un héroe: ¡¡ Aiden !!
-                
-                Aiden es un joven valiente con un espíritu indomable. Con un legado de guerreros 
-                ancestrales, deberá enfrentarse a las criaturas de Mortis y restaurar la paz antes 
+
+                Aiden es un joven valiente con un espíritu indomable. Con un legado de guerreros
+                ancestrales, deberá enfrentarse a las criaturas de Mortis y restaurar la paz antes
                 de que el reloj marque la medianoche........ \n
                 """);
 
-        System.out
-                .println(color3 + "- - - - - - - - - - - - " + reset + " INICIO:  ELIGE UNA OPCION " + color3 + " - - - - - - - - - - - -");
-        System.out.println(color3 + "- -" + color7 + "              1. Empezar a Jugar   " +color4 + "   2. Salir del juego             " + color3 + "- -");
-        System.out
-                .println(color3 + "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - " + //
-                                        "" + reset);
-        int choice = scanner.nextInt();
-        System.out.println();
+        do {
+            System.out
+                    .println(color3 + "- - - - - - - - - - - - " + reset + " INICIO:  ELIGE UNA OPCION " + color3
+                            + " - - - - - - - - - - - -");
+            System.out.println(color3 + "- -" + color7 + "              1. Empezar a Jugar   " + color4
+                    + "   2. Salir del juego             " + color3 + "- -");
+            System.out
+                    .println(color3 + "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - " + //
+                            "" + reset);
 
-        if (choice == 1) {
-            // Obtenemos los personajes desde el servicio
-            Character aiden = characterService.getCharacterById(1L);
-            Character skeleton = characterService.getCharacterById(2L);
-            // Character ghost = characterService.getCharacterById(3L);
-            // Character vampire = characterService.getCharacterById(4L);
-            // Character mortis = characterService.getCharacterById(5L);
-            firstFight(aiden, skeleton);
-            // secondFight(aiden, ghost);
-        } else {
-            System.out.println(color4 + "Has salido del juego. ¡Hasta pronto!" + reset);
-        }
+            int choice = scanner.nextInt();
+            System.out.println();
 
-        scanner.close();
+            switch (choice) {
+                case 1:
+                    // Obtenemos los personajes desde el servicio
+                    Character aiden = characterService.getCharacterById(1L);
+                    Character skeleton = characterService.getCharacterById(2L);
+                    List<Backpack> backpack = backpackService.getAll();
+                    List<GameObject> object = objectService.getAll();
+
+                    startGame = true; // Para salir del bucle
+
+                    firstFight(aiden, skeleton, backpack, object);
+                    break;
+
+                case 2:
+                    System.out.println(color4 + "Has salido del juego. ¡Hasta pronto!" + reset);
+                    startGame = true; // Para salir del bucle
+                    break;
+
+                default:
+                    System.out.println("Solo las opciones 1 y 2 están disponibles.. Intentelo de nuevo\n");
+                    break;
+            }
+        } while (!startGame);
+
+        scanner.close(); // Cerrar scanner al final del método
     }
 
-    private void firstFight(Character aiden, Character skeleton) {
+    private void firstFight(Character aiden, Character skeleton, List<Backpack> backpack, List<GameObject> object) {
         Scanner scanner = new Scanner(System.in);
         int numEsqueletos = 3;
         int countSkeleton = 1;
@@ -113,7 +138,7 @@ public class GameMenu {
 
                 while (!validAction) {
                     // Turno de Aiden
-                    System.out.println(color5 + "Es tu turno. Elige una acción:" +reset);
+                    System.out.println(color5 + "Es tu turno. Elige una acción:" + reset);
                     System.out.println("1. Atacar | 2. Ataque Potente | 3. Usar Objeto | 4. Escudo");
                     int action = scanner.nextInt();
 
@@ -123,9 +148,9 @@ public class GameMenu {
                             validAction = true;
                             break;
                         case 2:
-                            boolean result = powerfullAttack(aiden, skeleton);
+                            boolean resultPowerfullAttack = powerfullAttack(aiden, skeleton);
 
-                            if (result) {
+                            if (resultPowerfullAttack) {
                                 validAction = true;
                             } else {
                                 System.out.println("Hay que esperar 3 turnos para volver a utilizarlo...");
@@ -133,20 +158,27 @@ public class GameMenu {
 
                             break;
                         case 3:
-                            System.out.println("Usar Objeto - Esta funcionalidad está en desarrollo.");
-                            validAction = true;
+                            boolean resultBackpack = displayBackpack(backpack);
+
+                            if (resultBackpack) {
+                                validAction = true;
+                            }
+
                             break;
                         case 4:
-                            useShield();
-                            validAction = true;
+                            if (useShield()) {
+                                validAction = true;
+                            }
+
                             break;
                         default:
-                            System.out.println(color10 + "    ¡ Elige una opción válida ! \n    " +reset);
+                            System.out.println(color10 + "    ¡ Elige una opción válida ! \n    " + reset);
                     }
                 }
             } else {
                 // Turno del esqueleto
-                System.out.println(color4 + "Es el turno del Esqueleto! | Habiliad: RAPIDEZ | Nº: Esqueleto: " +reset + countSkeleton);
+                System.out.println(color4 + "Es el turno del Esqueleto! | Habiliad: RAPIDEZ | Nº: Esqueleto: " + reset
+                        + countSkeleton);
                 monsterAttack(aiden, skeleton);
             }
 
@@ -159,11 +191,13 @@ public class GameMenu {
                 countSkeleton++;
 
                 skeleton.setHealth(30); // Restablecer salud del próximo esqueleto
-                System.out.println(color10 + "Aiden ha derrotado a un esqueleto!!" +reset);
+                System.out.println(color10 + "Aiden ha derrotado a un esqueleto!!" + reset);
+
+                GameObject objectToAdd = findObject(object, backpack);
             } else if (skeleton.getHealth() <= 0 && numEsqueletos == 1) {
                 numEsqueletos--;
 
-                System.out.println(color10 + "       Has derrotado al último esqueleto!       " +reset);
+                System.out.println(color10 + "       Has derrotado al último esqueleto!       " + reset);
             }
         }
 
@@ -177,7 +211,7 @@ public class GameMenu {
             System.out.println();
             System.out.println(color5 + "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -");
             System.out.println("- -         VICTORIA: Aiden ha derrotado a todos los esqueletos         - -");
-            System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" +reset);
+            System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" + reset);
             System.out.println();
             System.out.println();
         }
@@ -203,6 +237,7 @@ public class GameMenu {
 
     private boolean powerfullAttack(Character attacker, Character target) {
         if (turnsUntilPowerAttackAvailable > 0) {
+            System.out.println("Hay que esperar 3 turnos para volver a utilizarlo...");
             turnsUntilPowerAttackAvailable--;
             return false;
         }
@@ -216,9 +251,17 @@ public class GameMenu {
         return true;
     }
 
-    // private void displayBackpack(Backpack backpack) {
-    // System.out.println(backpack.getGameObject());
-    // }
+    private boolean displayBackpack(List<Backpack> backpack) {
+        if (backpack.isEmpty()) {
+            System.out.println();
+            System.out.println("La mochila está vacía");
+            System.out.println("Introduce otra acción a ejecutar");
+            System.out.println();
+            return false;
+        }
+
+        return true;
+    }
 
     private boolean useShield() {
         if (isShieldActive) {
@@ -256,4 +299,26 @@ public class GameMenu {
             }
         }
     }
+
+    public GameObject findObject(List<GameObject> objects, List<Backpack> backpack) {
+        // Filtra los objetos no especiales (special == false)
+        List<GameObject> nonSpecialObjects = objects.stream()
+                .filter(obj -> !obj.getSpecial()) // Accedemos al atributo special
+                .collect(Collectors.toList());
+
+        // Selecciona un objeto aleatorio de los no especiales y retorna el objeto
+        if (!nonSpecialObjects.isEmpty()) {
+            Random random = new Random();
+
+            GameObject objectFinded = nonSpecialObjects.get(random.nextInt(nonSpecialObjects.size()));
+            System.out.println("Enhorabuena! El Esqueleto te ha dropeado: " + objectFinded.getName());
+
+            return objectFinded;
+        }
+
+        return null; // Retorna null si no hay objetos no especiales
+    }
+
+    // public void addObject(GameObject objectToAdd, Backpack backpack) {
+    // }
 }

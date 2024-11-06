@@ -54,10 +54,6 @@ public class CharacterControllerTest {
     
     @Test
     @DisplayName("Should return a list of characteres")
-
-
-
-
     void testGetCharacter() throws Exception {
         List<Character> mockCharacters = new ArrayList<>();
         

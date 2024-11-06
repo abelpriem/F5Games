@@ -120,13 +120,10 @@ public class GameMenu {
                     break;
             }
         } while (!startGame);
-
-        // scanner.close(); // Cerrar scanner al final del método
     }
 
     private void firstFight(Aiden aiden, Skeleton skeleton,
             ResponseEntity<List<Backpack>> backpack, List<GameObject> object) {
-        // Scanner scanner = new Scanner(System.in);
         int numEsqueletos = 3;
         int countSkeleton = 1;
         boolean turn = false; // Inicia con el turno del esqueleto | Aiden -> True
@@ -237,14 +234,14 @@ public class GameMenu {
             System.out.println("- -         VICTORIA: Aiden ha derrotado a todos los esqueletos         - -");
             System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" + reset);
             System.out.println();
-            findSpecialObject(object, backpack);
+
+            findSpecialObject(object, backpack, skeleton);
         }
     }
 
     private void secondFight(Aiden aiden, org.f5games.aiden_game.models.Ghost ghost,
             ResponseEntity<List<Backpack>> backpack, List<GameObject> object) {
         boolean turn = true;
-        // Scanner scanner = new Scanner(System.in);
 
         Graveyard.main(null);
         System.out.println();
@@ -277,6 +274,7 @@ public class GameMenu {
                     switch (action) {
                         case 1:
                             if (ghostInvisivility()) {
+                                System.out.println();
                                 System.out.println("¡El fantasma se ha vuelvo invisible y no puedes atacarle!");
                             } else {
                                 useAttack(aiden, ghost);
@@ -323,10 +321,9 @@ public class GameMenu {
 
             // Verificar si el esqueleto fue derrotado
             if (ghost.getHealth() <= 0) {
-                ghost.setHealth(30); // Restablecer salud del fantasma
                 System.out.println(color10 + "Aiden ha derrotado al fantasma!!" + reset);
 
-                GameObject objectToAdd = findNoSpecialObject(object, backpack, ghost);
+                GameObject objectToAdd = findSpecialObject(object, backpack, ghost);
             }
         }
 
@@ -344,8 +341,6 @@ public class GameMenu {
             System.out.println();
             System.out.println();
         }
-
-        // scanner.close();
     }
 
     // SHOW STATUS
@@ -470,7 +465,30 @@ public class GameMenu {
             }
 
             Backpack chosenObject = backpackContents.get(choiceObject - 1);
-            useObject(chosenObject, aiden); // Llama al método `useObject` con la instancia `Backpack`
+
+            System.out.println();
+            System.out.println("Elija una opción para ese objeto:");
+            System.out.println("1- Usar | 2- Tirar | 3- Volver al menú");
+
+            int choiseOption = scanner.nextInt();
+
+            switch (choiseOption) {
+                case 1:
+                    useObject(chosenObject, aiden); // Llama al método `useObject` con la instancia `Backpack`
+                    break;
+                case 2:
+                    backpackController.deleteObject(chosenObject.getId());
+
+                    System.out.println();
+                    System.out.println("¡Has tirado el objeto!");
+
+                    break;
+                case 3:
+                    return false;
+                default:
+                    System.out.println("Opción no válida");
+                    return false;
+            }
 
         } catch (InputMismatchException e) {
             System.out.println("Solo puedes ingresar números :)");
@@ -484,47 +502,149 @@ public class GameMenu {
     public GameObject findNoSpecialObject(List<GameObject> objects, ResponseEntity<List<Backpack>> backpack,
             Character monster) {
         // Filtra los objetos no especiales (special == false)
+        List<Backpack> backpackContents = backpack.getBody();
         List<GameObject> nonSpecialObjects = objects.stream()
                 .filter(obj -> !obj.getSpecial())
                 .collect(Collectors.toList());
 
-        // Selecciona un objeto aleatorio de los no especiales y retorna el objeto
+        // Selecciona un objeto aleatorio de los no especiales
         if (!nonSpecialObjects.isEmpty()) {
             Random random = new Random();
 
-            GameObject objectFinded = nonSpecialObjects.get(random.nextInt(nonSpecialObjects.size()));
+            GameObject objectDroped = nonSpecialObjects.get(random.nextInt(nonSpecialObjects.size()));
 
             System.out.println();
-            System.out.println("Enhorabuena! El " + monster.getName() + " te ha dropeado: " + objectFinded.getName());
+            System.out.println("Enhorabuena! El " + monster.getName() + " te ha dropeado: " + objectDroped.getName());
+            System.out.println();
 
-            backpackController.addObject(objectFinded.getId());
+            if (backpackContents.size() < 3) {
+                backpackController.addObject(objectDroped.getId());
+            } else {
+                System.out.println("La mochila está llena... ");
+                System.out.println("OPCIONES: 1- Reemplazar objeto | 2- No recoger objeto");
 
-            return objectFinded;
+                int option = scanner.nextInt();
+
+                if (option == 1) {
+                    System.out.println();
+                    System.out.println("\nObjetos en la mochila:");
+
+                    for (int i = 0; i < backpackContents.size(); i++) {
+                        Backpack item = backpackContents.get(i);
+                        GameObject gameObject = item.getGameObject(); // Obtén el GameObject asociado
+
+                        if (gameObject != null) {
+                            System.out.printf("%d. %s\n", i + 1, gameObject.getName());
+                        } else {
+                            System.out.printf("%d. Objeto sin nombre\n", i + 1);
+                        }
+                    }
+
+                    System.out.println();
+                    System.out.println(
+                            "Selecciona el objeto que quieres reemplazar (1-" + backpackContents.size() + "):");
+
+                    int replaceOption = scanner.nextInt();
+                    if (replaceOption >= 1 && replaceOption <= backpackContents.size()) {
+                        // Obtener el objeto a reemplazar según el índice
+                        Backpack selectedBackpackItem = backpackContents.get(replaceOption - 1);
+
+                        backpackController.updateObject(selectedBackpackItem.getId(), objectDroped.getId());
+
+                        System.out.println();
+                        System.out.println("¡Has reemplazado el objeto en la mochila!");
+                        System.out.println();
+                    } else {
+                        System.out.println();
+                        System.out.println("UPS! Has perdido el objeto...");
+                        System.out.println();
+                        return null;
+                    }
+                } else {
+                    System.out.println();
+                    System.out.println("Ignoras el objeto y decides dejarlo en el suelo");
+                    System.out.println();
+                    return null;
+                }
+            }
+
+            return objectDroped;
         }
 
         return null; // Retorna null si no hay objetos no especiales
     }
 
     // BACKPACK - FIND SPECIAL OBJECT
-    public GameObject findSpecialObject(List<GameObject> objects, ResponseEntity<List<Backpack>> backpack) {
+    public GameObject findSpecialObject(List<GameObject> objects, ResponseEntity<List<Backpack>> backpack,
+            Character monster) {
         // Filtra los objetos especiales (special == true)
+        List<Backpack> backpackContents = backpack.getBody();
         List<GameObject> specialObjects = objects.stream()
                 .filter(obj -> obj.getSpecial())
                 .collect(Collectors.toList());
 
-        // Selecciona un objeto aleatorio de los no especiales y retorna el objeto
+        // Selecciona un objeto aleatorio de los no especiales
         if (!specialObjects.isEmpty()) {
             Random random = new Random();
 
-            GameObject objectFinded = specialObjects.get(random.nextInt(specialObjects.size()));
+            GameObject objectDroped = specialObjects.get(random.nextInt(specialObjects.size()));
 
             System.out.println();
-            System.out.println(
-                    "Enhorabuena! Has acabado el nivel y recibes un objeto especial: " + objectFinded.getName());
+            System.out.println("Enhorabuena! El " + monster.getName() + " te ha dropeado: " + objectDroped.getName());
+            System.out.println();
 
-            backpackController.addObject(objectFinded.getId());
+            if (backpackContents.size() < 3) {
+                backpackController.addObject(objectDroped.getId());
+            } else {
+                System.out.println("La mochila está llena... ");
+                System.out.println("OPCIONES: 1- Reemplazar objeto | 2- No recoger objeto");
 
-            return objectFinded;
+                int option = scanner.nextInt();
+
+                if (option == 1) {
+                    System.out.println();
+                    System.out.println("\nObjetos en la mochila:");
+
+                    for (int i = 0; i < backpackContents.size(); i++) {
+                        Backpack item = backpackContents.get(i);
+                        GameObject gameObject = item.getGameObject(); // Obtén el GameObject asociado
+
+                        if (gameObject != null) {
+                            System.out.printf("%d. %s\n", i + 1, gameObject.getName());
+                        } else {
+                            System.out.printf("%d. Objeto sin nombre\n", i + 1);
+                        }
+                    }
+
+                    System.out.println();
+                    System.out.println(
+                            "Selecciona el objeto que quieres reemplazar (1-" + backpackContents.size() + "):");
+
+                    int replaceOption = scanner.nextInt();
+                    if (replaceOption >= 1 && replaceOption <= backpackContents.size()) {
+                        // Obtener el objeto a reemplazar según el índice
+                        Backpack selectedBackpackItem = backpackContents.get(replaceOption - 1);
+
+                        backpackController.updateObject(selectedBackpackItem.getId(), objectDroped.getId());
+
+                        System.out.println();
+                        System.out.println("¡Has reemplazado el objeto en la mochila!");
+                        System.out.println();
+                    } else {
+                        System.out.println();
+                        System.out.println("UPS! Has perdido el objeto...");
+                        System.out.println();
+                        return null;
+                    }
+                } else {
+                    System.out.println();
+                    System.out.println("Ignoras el objeto y decides dejarlo en el suelo");
+                    System.out.println();
+                    return null;
+                }
+            }
+
+            return objectDroped;
         }
 
         return null; // Retorna null si no hay objetos no especiales
@@ -539,8 +659,10 @@ public class GameMenu {
             return;
         }
 
+        System.out.println();
         System.out.println("Vas a usar el objeto: " + gameObject.getName());
         System.out.println("Descripción: " + gameObject.getDescription());
+        System.out.println();
 
         switch (gameObject.getName()) {
             case "Espada encantada":
@@ -552,21 +674,23 @@ public class GameMenu {
                 characterController.updateCharacter(aiden);
                 break;
             case "Amuleto mágico":
-                System.out.println("En desarrollo...");
+                System.out.println("Esta habilidad esta en desarrollo..");
                 break;
             case "Capa de invisibilidad":
-                System.out.println("En desarrollo...");
+                System.out.println("Esta habilidad esta en desarrollo..");
                 break;
             case "Gafas mágicas":
-                System.out.println("En desarrollo...");
+                System.out.println("Esta habilidad esta en desarrollo..");
                 break;
             case "Collar de ajos":
-                System.out.println("En desarrollo...");
+                System.out.println("Esta habilidad esta en desarrollo..");
                 break;
             default:
                 System.out.println("Esta habilidad esta en desarrollo..");
                 break;
         }
+
+        backpackController.deleteObject(gameObject.getId());
     }
 
     // GHOST - INVISIVILITY

@@ -24,26 +24,6 @@ public class CharacterController {
         return characterservice.getAll();
     }
 
-    @PutMapping(path = "/character/attack")
-    public ResponseEntity<Character> attack(@RequestBody Character character, @RequestBody Character target) {
-        return new ResponseEntity<>(characterservice.attack(character, target), HttpStatus.OK);
-    }
-
-    @PutMapping(path = "/character/powerfull-attack")
-    public ResponseEntity<Character> powerfullAttack(@RequestBody Character character, @RequestBody Character target) {
-        return new ResponseEntity<>(characterservice.powerfullAttack(character, target), HttpStatus.OK);
-    }
-
-    @PutMapping(path = "/character/attack-with-shield")
-    public ResponseEntity<Character> attackWithShield(@RequestBody Character character, @RequestBody Character target) {
-        return new ResponseEntity<>(characterservice.attackWithShield(character, target), HttpStatus.OK);
-    }
-
-    @PutMapping(path = "/character/use-potion")
-    public ResponseEntity<Character> usePotion(@RequestBody Character character) {
-        return new ResponseEntity<>(characterservice.potion(character), HttpStatus.OK);
-    }
-
     @PutMapping(path = "/character")
     public ResponseEntity<Character> updateCharacter(@RequestBody Character character) {
         return new ResponseEntity<>(characterservice.updateOne(character), HttpStatus.OK);

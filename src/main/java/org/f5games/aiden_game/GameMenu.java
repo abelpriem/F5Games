@@ -41,6 +41,8 @@ public class GameMenu {
     String color10 = "\033[38;5;206;48;5;57m";
     String reset = "\033[0m"; // blanco
 
+    Scanner scanner = new Scanner(System.in);
+
     private final CharacterController characterController;
     private final BackpackController backpackController;
     private final GameObjectController objectController;
@@ -55,7 +57,6 @@ public class GameMenu {
 
     public void start() {
         boolean startGame = false;
-        Scanner scanner = new Scanner(System.in);
 
         Title.main(null);
         System.out.println(color10 + "           Bienvenido a: La Noche De Los Espiritus!            \n" + reset);
@@ -120,12 +121,12 @@ public class GameMenu {
             }
         } while (!startGame);
 
-        scanner.close(); // Cerrar scanner al final del método
+        // scanner.close(); // Cerrar scanner al final del método
     }
 
     private void firstFight(Aiden aiden, Skeleton skeleton,
             ResponseEntity<List<Backpack>> backpack, List<GameObject> object) {
-        Scanner scanner = new Scanner(System.in);
+        // Scanner scanner = new Scanner(System.in);
         int numEsqueletos = 3;
         int countSkeleton = 1;
         boolean turn = false; // Inicia con el turno del esqueleto | Aiden -> True
@@ -212,6 +213,8 @@ public class GameMenu {
                 countSkeleton++;
 
                 skeleton.setHealth(30); // Restablecer salud del próximo esqueleto
+                characterController.updateCharacter(skeleton);
+
                 System.out.println(color10 + "Aiden ha derrotado a un esqueleto!!" + reset);
 
                 findNoSpecialObject(object, backpack, skeleton);
@@ -241,7 +244,7 @@ public class GameMenu {
     private void secondFight(Aiden aiden, org.f5games.aiden_game.models.Ghost ghost,
             ResponseEntity<List<Backpack>> backpack, List<GameObject> object) {
         boolean turn = true;
-        Scanner scanner = new Scanner(System.in);
+        // Scanner scanner = new Scanner(System.in);
 
         Graveyard.main(null);
         System.out.println();
@@ -342,7 +345,7 @@ public class GameMenu {
             System.out.println();
         }
 
-        scanner.close();
+        // scanner.close();
     }
 
     // SHOW STATUS
@@ -361,8 +364,8 @@ public class GameMenu {
         System.out.println();
         System.out.printf("%s ataca a %s\n", attacker.getName(), target.getName());
 
-        // CONTROLLER - ATTACK
-        characterController.attack(attacker, target);
+        target.setHealth(target.getHealth() - attacker.getStrength());
+        characterController.updateCharacter(target);
     }
 
     // POWERFULL ATTACK
@@ -376,7 +379,8 @@ public class GameMenu {
         System.out.println();
         System.out.printf("%s usa ataque poderoso contra %s\n", attacker.getName(), target.getName());
 
-        characterController.powerfullAttack(attacker, target);
+        target.setHealth(target.getHealth() - (attacker.getStrength() + 10));
+        characterController.updateCharacter(target);
 
         return true;
     }
@@ -388,10 +392,14 @@ public class GameMenu {
         if (isShieldActive) {
             damage -= 5;
             System.out.printf("%s ataca a Aiden, pero el escudo reduce el daño a %d!\n", monster.getName(), damage);
-            characterController.attackWithShield(monster, aiden);
+
+            aiden.setHealth(aiden.getHealth() - (monster.getStrength() - 5));
+            characterController.updateCharacter(aiden);
         } else {
             System.out.printf("%s ataca a Aiden!\n", monster.getName());
-            characterController.attack(monster, aiden);
+
+            aiden.setHealth(aiden.getHealth() - monster.getStrength());
+            characterController.updateCharacter(aiden);
         }
 
         if (isShieldActive) {
@@ -428,8 +436,6 @@ public class GameMenu {
         ResponseEntity<List<Backpack>> backpack = backpackController.retrieveObjects();
         List<Backpack> backpackContents = backpack.getBody();
 
-        System.out.println(backpackContents);
-
         if (backpackContents.isEmpty()) {
             System.out.println();
             System.out.println("La mochila está vacía");
@@ -438,6 +444,7 @@ public class GameMenu {
             return false;
         }
 
+        System.out.println();
         System.out.println("\nObjetos en la mochila:");
         for (int i = 0; i < backpackContents.size(); i++) {
             Backpack item = backpackContents.get(i);
@@ -450,11 +457,11 @@ public class GameMenu {
             }
         }
 
-        Scanner myscanner = new Scanner(System.in);
+        System.out.println();
         System.out.println("Selecciona un objeto para usar (1-" + backpackContents.size() + "):");
 
         try {
-            int choiceObject = myscanner.nextInt();
+            int choiceObject = scanner.nextInt();
 
             // Validación de rango de índice
             if (choiceObject < 1 || choiceObject > backpackContents.size()) {
@@ -467,10 +474,9 @@ public class GameMenu {
 
         } catch (InputMismatchException e) {
             System.out.println("Solo puedes ingresar números :)");
-            myscanner.next();
+            scanner.next();
         }
 
-        myscanner.close();
         return true;
     }
 
@@ -536,14 +542,26 @@ public class GameMenu {
         System.out.println("Vas a usar el objeto: " + gameObject.getName());
         System.out.println("Descripción: " + gameObject.getDescription());
 
-        switch (gameObject.getName().toLowerCase()) {
+        switch (gameObject.getName()) {
             case "Espada encantada":
                 aiden.setStrength(aiden.getStrength() + 15);
                 characterController.updateCharacter(aiden);
                 break;
             case "Poción de vida":
-                aiden.setHealth(aiden.getHealth() + 30);
+                aiden.setHealth(100);
                 characterController.updateCharacter(aiden);
+                break;
+            case "Amuleto mágico":
+                System.out.println("En desarrollo...");
+                break;
+            case "Capa de invisibilidad":
+                System.out.println("En desarrollo...");
+                break;
+            case "Gafas mágicas":
+                System.out.println("En desarrollo...");
+                break;
+            case "Collar de ajos":
+                System.out.println("En desarrollo...");
                 break;
             default:
                 System.out.println("Esta habilidad esta en desarrollo..");
@@ -554,5 +572,25 @@ public class GameMenu {
     // GHOST - INVISIVILITY
     private boolean ghostInvisivility() {
         return Math.random() < 0.5;
+    }
+
+    // VAMPIRE - RECOVER HEALTH
+    private boolean recoverHealth(Character recovered) {
+        boolean result = Math.random() < 0.5;
+
+        if (result) {
+            System.out.println();
+            System.out.println("El vampiro te ha mordido y se recupera " + recovered.getStrength() + " puntos de vida");
+            System.out.println();
+
+            recovered.setHealth(recovered.getHealth() + recovered.getStrength());
+            characterController.updateCharacter(recovered);
+        }
+
+        System.out.println();
+        System.out.println("El vampiro no ha activado su habilidad y no te roba vida...");
+        System.out.println();
+
+        return true;
     }
 }

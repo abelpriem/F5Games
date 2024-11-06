@@ -25,7 +25,8 @@ import lombok.experimental.SuperBuilder;
     @JsonSubTypes.Type(value = Aiden.class, name = "AIDEN"),
     @JsonSubTypes.Type(value = Skeleton.class, name = "SKELETON"),
     @JsonSubTypes.Type(value = Ghost.class, name = "GHOST"),
-    @JsonSubTypes.Type(value = Vampire.class, name = "VAMPIRE")
+    @JsonSubTypes.Type(value = Vampire.class, name = "VAMPIRE"),
+    @JsonSubTypes.Type(value = Mortis.class, name = "MORTIS")
 })
 @Entity
 @DiscriminatorColumn(name = "entity_class", discriminatorType = DiscriminatorType.STRING)

@@ -11,7 +11,7 @@ public class CharacterService {
 
     private final CharacterRepository characterRepository;
 
-    public CharacterService (CharacterRepository characterRepository) {
+    public CharacterService(CharacterRepository characterRepository) {
         this.characterRepository = characterRepository;
     }
 
@@ -21,6 +21,49 @@ public class CharacterService {
 
     public Character updateOne(Character character) {
         if (characterRepository.existsById(character.getId())) {
+            return characterRepository.save(character);
+        } else {
+            throw new IllegalArgumentException("character identifier" + character.getId() + "doesn't exist");
+        }
+    }
+
+    public Character attack(Character attacker, Character target) {
+        if ((characterRepository.existsById(attacker.getId())) && (characterRepository.existsById(target.getId()))) {
+            target.setHealth(target.getHealth() - attacker.getStrength());
+
+            return characterRepository.save(target);
+        } else {
+            throw new IllegalArgumentException(
+                    "Character identifier" + attacker.getId() + " or " + target.getId() + "don't exist");
+        }
+    }
+
+    public Character powerfullAttack(Character attacker, Character target) {
+        if ((characterRepository.existsById(attacker.getId())) && (characterRepository.existsById(target.getId()))) {
+            target.setHealth(target.getHealth() - (attacker.getStrength() + 10));
+
+            return characterRepository.save(target);
+        } else {
+            throw new IllegalArgumentException(
+                    "Character identifier" + attacker.getId() + " or " + target.getId() + "don't exist");
+        }
+    }
+
+    public Character attackWithShield(Character attacker, Character target) {
+        if ((characterRepository.existsById(attacker.getId())) && (characterRepository.existsById(target.getId()))) {
+            target.setHealth(target.getHealth() - (attacker.getStrength() - 5));
+
+            return characterRepository.save(target);
+        } else {
+            throw new IllegalArgumentException(
+                    "Character identifier" + attacker.getId() + " or " + target.getId() + "don't exist");
+        }
+    }
+
+    public Character potion(Character character) {
+        if (characterRepository.existsById(character.getId())) {
+            character.setHealth((character.getHealth() + 30));
+
             return characterRepository.save(character);
         } else {
             throw new IllegalArgumentException("character identifier" + character.getId() + "doesn't exist");

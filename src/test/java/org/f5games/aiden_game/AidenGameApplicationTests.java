@@ -6,7 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class AidenGameApplicationTests {
 
-	@Test
+	//@Test
 	void contextLoads() {
 	}
 

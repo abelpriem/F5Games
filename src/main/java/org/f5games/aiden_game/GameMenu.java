@@ -7,12 +7,14 @@ import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
+import org.f5games.aiden_game.assets.ascii.Castle;
 import org.f5games.aiden_game.assets.ascii.Forest;
 import org.f5games.aiden_game.assets.ascii.GameOver;
 import org.f5games.aiden_game.assets.ascii.Ghost;
 import org.f5games.aiden_game.assets.ascii.Graveyard;
 import org.f5games.aiden_game.assets.ascii.Skeletons;
 import org.f5games.aiden_game.assets.ascii.Title;
+import org.f5games.aiden_game.assets.ascii.Vampire;
 import org.f5games.aiden_game.controllers.BackpackController;
 import org.f5games.aiden_game.controllers.CharacterController;
 import org.f5games.aiden_game.controllers.GameObjectController;
@@ -97,7 +99,8 @@ public class GameMenu {
                     Skeleton skeleton = (Skeleton) personajes.get(1);
                     org.f5games.aiden_game.models.Ghost ghost = (org.f5games.aiden_game.models.Ghost) personajes
                             .get(2);
-                    // Vampire vampire = (Vampire) personajes.get(3);
+                    org.f5games.aiden_game.models.Vampire vampire = (org.f5games.aiden_game.models.Vampire) personajes
+                            .get(3);
                     // Mortis mortis = (Mortis) personajes.get(4);
 
                     ResponseEntity<List<Backpack>> backpack = backpackController.retrieveObjects();
@@ -107,6 +110,7 @@ public class GameMenu {
 
                     firstFight(aiden, skeleton, backpack, object);
                     secondFight(aiden, ghost, backpack, object);
+                    thirdFigth(aiden, vampire, backpack, object);
 
                     break;
                 case 2:
@@ -195,7 +199,7 @@ public class GameMenu {
                 }
             } else {
                 // Turno del esqueleto
-                System.out.println(color4 + "Es el turno del Esqueleto! | Habiliad: RAPIDEZ | Nº: Esqueleto: " + reset
+                System.out.println(color4 + "¡Es el turno del Esqueleto! | Habiliad: RAPIDEZ | Nº: Esqueleto: " + reset
                         + countSkeleton);
 
                 monsterAttack(skeleton, aiden);
@@ -212,13 +216,13 @@ public class GameMenu {
                 skeleton.setHealth(30); // Restablecer salud del próximo esqueleto
                 characterController.updateCharacter(skeleton);
 
-                System.out.println(color10 + "Aiden ha derrotado a un esqueleto!!" + reset);
+                System.out.println(color10 + "¡¡Aiden ha derrotado a un esqueleto!!" + reset);
 
                 findNoSpecialObject(object, backpack, skeleton);
             } else if (skeleton.getHealth() <= 0 && numEsqueletos == 1) {
                 numEsqueletos--;
 
-                System.out.println(color10 + "       Has derrotado al último esqueleto!       " + reset);
+                System.out.println(color10 + "       ¡Has derrotado al último esqueleto!       " + reset);
             }
         }
 
@@ -226,7 +230,7 @@ public class GameMenu {
         if (aiden.getHealth() <= 0) {
             System.out.println();
             System.out.println();
-            System.out.println("Aiden ha sido derrotado!");
+            System.out.println("Aiden ha sido derrotado...");
             GameOver.main(null);
         } else {
             System.out.println();
@@ -234,6 +238,9 @@ public class GameMenu {
             System.out.println("- -         VICTORIA: Aiden ha derrotado a todos los esqueletos         - -");
             System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" + reset);
             System.out.println();
+
+            aiden.setStrength(aiden.getStrength() + 10);
+            characterController.updateCharacter(aiden);
 
             findSpecialObject(object, backpack, skeleton);
         }
@@ -312,7 +319,7 @@ public class GameMenu {
                 }
             } else {
                 // Turno del fantasma
-                System.out.println(color4 + "Es el turno del Fantasma! | Habiliad: Invisibilidad");
+                System.out.println(color4 + "¡Es el turno del Fantasma! | Habiliad: INVISIBILIDAD");
                 monsterAttack(ghost, aiden);
             }
 
@@ -321,7 +328,7 @@ public class GameMenu {
 
             // Verificar si el esqueleto fue derrotado
             if (ghost.getHealth() <= 0) {
-                System.out.println(color10 + "Aiden ha derrotado al fantasma!!" + reset);
+                System.out.println(color10 + "¡¡Aiden ha derrotado al fantasma!!" + reset);
 
                 GameObject objectToAdd = findSpecialObject(object, backpack, ghost);
             }
@@ -331,7 +338,7 @@ public class GameMenu {
         if (aiden.getHealth() <= 0) {
             System.out.println();
             System.out.println();
-            System.out.println("Aiden ha sido derrotado!");
+            System.out.println("Aiden ha sido derrotado...");
             GameOver.main(null);
         } else {
             System.out.println();
@@ -340,6 +347,119 @@ public class GameMenu {
             System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" + reset);
             System.out.println();
             System.out.println();
+
+            aiden.setStrength(aiden.getStrength() + 15);
+            characterController.updateCharacter(aiden);
+
+            findSpecialObject(object, backpack, ghost);
+        }
+    }
+
+    private void thirdFigth(Aiden aiden, org.f5games.aiden_game.models.Vampire vampire,
+            ResponseEntity<List<Backpack>> backpack, List<GameObject> object) {
+        boolean turn = true;
+
+        Castle.main(null);
+        System.out.println();
+        System.out.println(
+                "Tras superar tantas adversidades, finalmente Aiden entra en el Castillo para derrotar al Monstruo Mortis");
+        System.out.println(
+                "Las paredes de piedra, las gárgolas de piedra, la gran alfombra roja y los candelabros le dejan sin aliento...");
+        System.out.println("De pronto... ¡un aleteo muy fuerte le sorprende de golpe!");
+        Vampire.main(null);
+        System.out.println("\n \n               ¡Combate iniciado!");
+        System.out.println();
+
+        while (aiden.getHealth() > 0 && vampire.getHealth() > 0) {
+            displayStatus(aiden, vampire);
+
+            try {
+                TimeUnit.SECONDS.sleep(3); // Pausa de 3 segundos entre turnos
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                System.out.println("Interrupción inesperada en el combate");
+            }
+
+            if (turn) {
+                boolean validAction = false;
+
+                while (!validAction) {
+                    // Turno de Aiden
+                    System.out.println(color5 + "Es tu turno. Elige una acción:" + reset);
+                    System.out.println("1. Atacar | 2. Ataque Potente | 3. Usar Objeto | 4. Escudo");
+                    int action = scanner.nextInt();
+
+                    switch (action) {
+                        case 1:
+                            useAttack(aiden, vampire);
+
+                            validAction = true;
+                            break;
+                        case 2:
+                            boolean resultPowerfullAttack = powerfullAttack(aiden, vampire);
+
+                            if (resultPowerfullAttack) {
+                                validAction = true;
+                            }
+
+                            break;
+                        case 3:
+                            boolean resultBackpack = displayBackpack(aiden);
+
+                            if (resultBackpack) {
+                                validAction = true;
+                            }
+
+                            break;
+                        case 4:
+                            if (useShield()) {
+                                validAction = true;
+                            }
+
+                            break;
+                        default:
+                            System.out.println(color10 + "    ¡ Elige una opción válida ! \n    " + reset);
+                    }
+
+                    turnsUntilPowerAttackAvailable--;
+                }
+            } else {
+                // Turno del vampiro
+                System.out.println(color4 + "¡Es el turno del Vampiro! | Habiliad: INVISIBILIDAD");
+                monsterAttack(vampire, aiden);
+                recoverHealth(vampire);
+            }
+
+            // Alternar el turno
+            turn = !turn;
+
+            // Verificar si el esqueleto fue derrotado
+            if (vampire.getHealth() <= 0) {
+                System.out.println(color10 + "¡¡Aiden ha derrotado al Vampiro!!" + reset);
+
+                GameObject objectToAdd = findSpecialObject(object, backpack, vampire);
+            }
+        }
+
+        // Resultado final del combate
+        if (aiden.getHealth() <= 0) {
+            System.out.println();
+            System.out.println();
+            System.out.println("Aiden ha sido derrotado...");
+            GameOver.main(null);
+        } else {
+            System.out.println();
+            System.out.println(color5 + "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -");
+            System.out.println("- -               VICTORIA: Aiden ha derrotado al vampiro                   - -");
+            System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" + reset);
+            System.out.println();
+            System.out.println();
+
+            aiden.setStrength(aiden.getStrength() + 20);
+            aiden.setHealth(aiden.getHealth() + (aiden.getHealth() / 2));
+            characterController.updateCharacter(aiden);
+
+            findSpecialObject(object, backpack, vampire);
         }
     }
 
@@ -514,12 +634,10 @@ public class GameMenu {
             GameObject objectDroped = nonSpecialObjects.get(random.nextInt(nonSpecialObjects.size()));
 
             System.out.println();
-            System.out.println("Enhorabuena! El " + monster.getName() + " te ha dropeado: " + objectDroped.getName());
+            System.out.println("¡Enhorabuena! El " + monster.getName() + " te ha dropeado: " + objectDroped.getName());
             System.out.println();
 
-            if (backpackContents.size() < 3) {
-                backpackController.addObject(objectDroped.getId());
-            } else {
+            if (backpackContents.size() == 3) {
                 System.out.println("La mochila está llena... ");
                 System.out.println("OPCIONES: 1- Reemplazar objeto | 2- No recoger objeto");
 
@@ -566,6 +684,8 @@ public class GameMenu {
                     System.out.println();
                     return null;
                 }
+            } else {
+                backpackController.addObject(objectDroped.getId());
             }
 
             return objectDroped;
@@ -593,9 +713,7 @@ public class GameMenu {
             System.out.println("Enhorabuena! El " + monster.getName() + " te ha dropeado: " + objectDroped.getName());
             System.out.println();
 
-            if (backpackContents.size() < 3) {
-                backpackController.addObject(objectDroped.getId());
-            } else {
+            if (backpackContents.size() >= 3) {
                 System.out.println("La mochila está llena... ");
                 System.out.println("OPCIONES: 1- Reemplazar objeto | 2- No recoger objeto");
 
@@ -642,6 +760,8 @@ public class GameMenu {
                     System.out.println();
                     return null;
                 }
+            } else {
+                backpackController.addObject(objectDroped.getId());
             }
 
             return objectDroped;

@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.f5games.aiden_game.models.Backpack;
 import org.f5games.aiden_game.models.Character;
 import org.f5games.aiden_game.repository.CharacterRepository;
 import org.junit.jupiter.api.BeforeEach;

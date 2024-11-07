@@ -2,7 +2,7 @@ package org.f5games.aiden_game.assets.ascii;
 
 public class FinalBoss {
 
-    public static void main(String[] args) {
+    public static void ascii(String[] args) {
         String color4 = "\033[91m"; // rojo
 
         System.out

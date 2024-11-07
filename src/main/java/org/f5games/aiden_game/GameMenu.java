@@ -64,7 +64,7 @@ public class GameMenu {
     public void start() {
         boolean startGame = false;
 
-        Title.main(null);
+        Title.ascii(null);
         System.out.println(color10 + "           Bienvenido a: La Noche De Los Espiritus!            \n" + reset);
         System.out.println("""
                 En un pequeño y remoto pueblo rodeado de densos bosques, cada año, en la noche de
@@ -141,7 +141,7 @@ public class GameMenu {
         System.out.println();
         System.out.println("Algo se mueve en la oscuridad de la noche...");
         System.out.println("Se escuchan sonidos emitidos por seres extraños...");
-        Skeletons.main(null);
+        Skeletons.ascii(null);
         System.out.println("\n \n               ¡Combate iniciado!");
         System.out.println();
         long startTime = System.nanoTime();
@@ -247,7 +247,7 @@ public class GameMenu {
             System.out.println();
             System.out.println();
             System.out.println("Aiden ha sido derrotado...");
-            GameOver.main(null);
+            GameOver.ascii(null);
         } else {
             System.out.println();
             System.out.println(color5 + "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -");
@@ -273,12 +273,12 @@ public class GameMenu {
             ResponseEntity<List<Backpack>> backpack, List<GameObject> object) {
         boolean turn = true;
 
-        Graveyard.main(null);
+        Graveyard.ascii(null);
         System.out.println();
         System.out.println("La niebla, las tumbas y los aullidos te hacen tener escalofríos...");
         System.out.println("Bu... bu... BUUUUUUU!");
         System.out.println("¡Un ruido a tus espaldas te sobresalta!");
-        Ghost.main(null);
+        Ghost.ascii(null);
         System.out.println("\n \n               ¡Combate iniciado!");
         System.out.println();
         long startTime = System.nanoTime();
@@ -369,7 +369,7 @@ public class GameMenu {
             System.out.println();
             System.out.println();
             System.out.println("Aiden ha sido derrotado...");
-            GameOver.main(null);
+            GameOver.ascii(null);
         } else {
             System.out.println();
             System.out.println(color5 + "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -");
@@ -395,14 +395,14 @@ public class GameMenu {
             ResponseEntity<List<Backpack>> backpack, List<GameObject> object) {
         boolean turn = true;
 
-        Castle.main(null);
+        Castle.ascii(null);
         System.out.println();
         System.out.println(
                 "Tras superar tantas adversidades, finalmente Aiden entra en el Castillo para derrotar al Monstruo Mortis");
         System.out.println(
                 "Las paredes de piedra, las gárgolas en las cornisas, la gran alfombra roja y los candelabros le dejan sin aliento...");
         System.out.println("De pronto... ¡un aleteo muy fuerte y un olor a sed de sangre le sorprende de golpe!");
-        Vampire.main(null);
+        Vampire.ascii(null);
         System.out.println("\n \n               ¡Combate iniciado!");
         System.out.println();
         long startTime = System.nanoTime();
@@ -489,7 +489,7 @@ public class GameMenu {
             System.out.println();
             System.out.println();
             System.out.println("Aiden ha sido derrotado...");
-            GameOver.main(null);
+            GameOver.ascii(null);
         } else {
             System.out.println();
             System.out.println(color5 + "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -");
@@ -518,7 +518,7 @@ public class GameMenu {
         boolean isMortisInvisible = false;
 
         // Castle.main(null);
-        FinalBoss.main(null);
+        FinalBoss.ascii(null);
         System.out.println();
         System.out.println(
                 "¡Finalmente, Aiden ha logrado superar todas las adeversidades que ha encontrado en el camino!");
@@ -533,7 +533,7 @@ public class GameMenu {
                 "Aiden se acerca, mirandole con odio, cara a cara y Mortis lanza una risa malvada para acabar diciendo...");
         System.out.println();
         System.out.println("-Mortis: este es tu final chico... ¡Preparate a morir!");
-        Morti.main(null);
+        Morti.ascii(null);
         System.out.println("\n \n               ¡Combate iniciado!");
         System.out.println();
         long startTime = System.nanoTime();
@@ -628,7 +628,7 @@ public class GameMenu {
             System.out.println();
             System.out.println("Aiden ha sido derrotado...");
 
-            GameOver.main(null);
+            GameOver.ascii(null);
         } else {
             System.out.println();
             System.out.println(color5 + "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -");
@@ -645,7 +645,7 @@ public class GameMenu {
 
             System.out.println();
 
-            Winner.main(null);
+            Winner.ascii(null);
         }
     }
 

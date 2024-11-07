@@ -1,7 +1,7 @@
 package org.f5games.aiden_game.assets.ascii;
 
 public class Morti {
-    public static void main(String[] args) {
+    public static void ascii(String[] args) {
 
         String azul = "\033[1;36m";
         String reset = "\033[0m";

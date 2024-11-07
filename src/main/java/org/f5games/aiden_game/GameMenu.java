@@ -16,6 +16,7 @@ import org.f5games.aiden_game.assets.ascii.Morti;
 import org.f5games.aiden_game.assets.ascii.Skeletons;
 import org.f5games.aiden_game.assets.ascii.Title;
 import org.f5games.aiden_game.assets.ascii.Vampire;
+import org.f5games.aiden_game.assets.ascii.Winner;
 import org.f5games.aiden_game.controllers.BackpackController;
 import org.f5games.aiden_game.controllers.CharacterController;
 import org.f5games.aiden_game.controllers.GameObjectController;
@@ -33,6 +34,7 @@ public class GameMenu {
     private int turnsUntilPowerAttackAvailable;
     private int turnsUntilShieldActive;
     private boolean isShieldActive = false;
+    String specialObjectActived;
 
     String color1 = "\033[96m"; // cian
     String color1b = "\033[1;96m"; // cian bold
@@ -132,16 +134,17 @@ public class GameMenu {
 
     private void firstFight(Aiden aiden, Skeleton skeleton,
             ResponseEntity<List<Backpack>> backpack, List<GameObject> object) {
-        int numEsqueletos = 5;
+        int numEsqueletos = 3;
         int countSkeleton = 1;
         boolean turn = false;
 
-        FinalBoss.main(null);
         System.out.println();
         System.out.println("Algo se mueve en la oscuridad de la noche...");
         System.out.println("Se escuchan sonidos emitidos por seres extraños...");
         Skeletons.main(null);
         System.out.println("\n \n               ¡Combate iniciado!");
+        System.out.println();
+        long startTime = System.nanoTime();
         System.out.println();
 
         while (aiden.getHealth() > 0 && numEsqueletos > 0) {
@@ -159,7 +162,8 @@ public class GameMenu {
 
                 while (!validAction) {
                     // Turno de Aiden
-                    System.out.println(color5 + "Es tu turno. Elige una acción:" + reset);
+                    System.out
+                            .println(color5 + "Es tu turno. Elige una acción:" + reset);
                     System.out.println("1. Atacar | 2. Ataque Potente | 3. Usar Objeto | 4. Escudo");
                     int action = scanner.nextInt();
 
@@ -203,7 +207,7 @@ public class GameMenu {
                 }
             } else {
                 // Turno del esqueleto
-                System.out.println(color4 + "¡Es el turno del Esqueleto! | Habiliad: RAPIDEZ | Nº: Esqueleto: " + reset
+                System.out.println(color4 + "¡Es el turno del Esqueleto! | Habilidad: RAPIDEZ | Nº: Esqueleto: " + reset
                         + countSkeleton);
 
                 monsterAttack(skeleton, aiden);
@@ -223,12 +227,20 @@ public class GameMenu {
                 System.out.println(color10 + "¡¡Aiden ha derrotado a un esqueleto!!" + reset);
 
                 findNoSpecialObject(skeleton);
+
+                aiden.setScore(aiden.getScore() + 10);
+                characterController.updateCharacter(aiden);
             } else if (skeleton.getHealth() <= 0 && numEsqueletos == 1) {
                 numEsqueletos--;
 
                 System.out.println(color10 + "       ¡Has derrotado al último esqueleto!       " + reset);
             }
         }
+
+        long endTime = System.nanoTime();
+        long durationInNano = (endTime - startTime);
+        long durationInSeconds = TimeUnit.NANOSECONDS.toSeconds(durationInNano);
+        int timeBonus = calculateTimeBonus(durationInSeconds);
 
         // Resultado final del combate
         if (aiden.getHealth() <= 0) {
@@ -242,11 +254,18 @@ public class GameMenu {
             System.out.println("- -         VICTORIA: Aiden ha derrotado a todos los esqueletos         - -");
             System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" + reset);
             System.out.println();
+            System.out.println();
+            System.out.println("Tiempo de combate: " + durationInSeconds + " segundos");
+            System.out.println("Bonus de tiempo: " + timeBonus + " puntos");
+            System.out.println("Score total: " + aiden.getScore());
 
             aiden.setStrength(aiden.getStrength() + 10);
             characterController.updateCharacter(aiden);
 
             findSpecialObject(skeleton);
+
+            aiden.setScore(aiden.getScore() + timeBonus);
+            characterController.updateCharacter(aiden);
         }
     }
 
@@ -261,6 +280,8 @@ public class GameMenu {
         System.out.println("¡Un ruido a tus espaldas te sobresalta!");
         Ghost.main(null);
         System.out.println("\n \n               ¡Combate iniciado!");
+        System.out.println();
+        long startTime = System.nanoTime();
         System.out.println();
 
         while (aiden.getHealth() > 0 && ghost.getHealth() > 0) {
@@ -323,7 +344,7 @@ public class GameMenu {
                 }
             } else {
                 // Turno del fantasma
-                System.out.println(color4 + "¡Es el turno del Fantasma! | Habiliad: INVISIBILIDAD");
+                System.out.println(color4 + "¡Es el turno del Fantasma! | Habilidad: INVISIBILIDAD");
                 monsterAttack(ghost, aiden);
             }
 
@@ -338,6 +359,11 @@ public class GameMenu {
             }
         }
 
+        long endTime = System.nanoTime();
+        long durationInNano = (endTime - startTime);
+        long durationInSeconds = TimeUnit.NANOSECONDS.toSeconds(durationInNano);
+        int timeBonus = calculateTimeBonus(durationInSeconds);
+
         // Resultado final del combate
         if (aiden.getHealth() <= 0) {
             System.out.println();
@@ -351,11 +377,17 @@ public class GameMenu {
             System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" + reset);
             System.out.println();
             System.out.println();
+            System.out.println("Tiempo de combate: " + durationInSeconds + " segundos");
+            System.out.println("Bonus de tiempo: " + timeBonus + " puntos");
+            System.out.println("Score total: " + aiden.getScore());
 
             aiden.setStrength(aiden.getStrength() + 15);
             characterController.updateCharacter(aiden);
 
             findSpecialObject(ghost);
+
+            aiden.setScore(aiden.getScore() + timeBonus);
+            characterController.updateCharacter(aiden);
         }
     }
 
@@ -372,6 +404,8 @@ public class GameMenu {
         System.out.println("De pronto... ¡un aleteo muy fuerte y un olor a sed de sangre le sorprende de golpe!");
         Vampire.main(null);
         System.out.println("\n \n               ¡Combate iniciado!");
+        System.out.println();
+        long startTime = System.nanoTime();
         System.out.println();
 
         while (aiden.getHealth() > 0 && vampire.getHealth() > 0) {
@@ -429,7 +463,7 @@ public class GameMenu {
                 }
             } else {
                 // Turno del vampiro
-                System.out.println(color4 + "¡Es el turno del Vampiro! | Habiliad: ROBAR VIDA");
+                System.out.println(color4 + "¡Es el turno del Vampiro! | Habilidad: ROBAR VIDA");
                 monsterAttack(vampire, aiden);
                 recoverHealth(vampire);
             }
@@ -437,13 +471,18 @@ public class GameMenu {
             // Alternar el turno
             turn = !turn;
 
-            // Verificar si el esqueleto fue derrotado
+            // Verificar si el vampiro fue derrotado
             if (vampire.getHealth() <= 0) {
                 System.out.println(color10 + "¡¡Aiden ha derrotado al Vampiro!!" + reset);
 
                 GameObject objectToAdd = findNoSpecialObject(vampire);
             }
         }
+
+        long endTime = System.nanoTime();
+        long durationInNano = (endTime - startTime);
+        long durationInSeconds = TimeUnit.NANOSECONDS.toSeconds(durationInNano);
+        int timeBonus = calculateTimeBonus(durationInSeconds);
 
         // Resultado final del combate
         if (aiden.getHealth() <= 0) {
@@ -458,23 +497,36 @@ public class GameMenu {
             System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" + reset);
             System.out.println();
             System.out.println();
+            System.out.println("Tiempo de combate: " + durationInSeconds + " segundos");
+            System.out.println("Bonus de tiempo: " + timeBonus + " puntos");
+            System.out.println("Score total: " + aiden.getScore());
 
             aiden.setStrength(aiden.getStrength() + 20);
             aiden.setHealth(aiden.getHealth() + (aiden.getHealth() / 2));
             characterController.updateCharacter(aiden);
 
             findSpecialObject(vampire);
+
+            aiden.setScore(aiden.getScore() + timeBonus);
+            characterController.updateCharacter(aiden);
         }
     }
 
     private void finalFight(Aiden aiden, Mortis mortis,
             ResponseEntity<List<Backpack>> backpack, List<GameObject> object) {
         boolean turn = true;
+        boolean isMortisInvisible = false;
 
         // Castle.main(null);
+        FinalBoss.main(null);
         System.out.println();
         System.out.println(
                 "¡Finalmente, Aiden ha logrado superar todas las adeversidades que ha encontrado en el camino!");
+        System.out.println();
+        System.out.println(
+                "Caminando por el largo pasillo, encuentra una ARMADURA DORADA en un cadaver y decide ponérsela");
+        System.out.println();
+        useArmor(aiden);
         System.out.println(
                 "Tras abrir las puertas de la sala principal, al fondo se encuentra Mortis sentado en su trono de fuego...");
         System.out.println(
@@ -483,6 +535,8 @@ public class GameMenu {
         System.out.println("-Mortis: este es tu final chico... ¡Preparate a morir!");
         Morti.main(null);
         System.out.println("\n \n               ¡Combate iniciado!");
+        System.out.println();
+        long startTime = System.nanoTime();
         System.out.println();
 
         while (aiden.getHealth() > 0 && mortis.getHealth() > 0) {
@@ -506,7 +560,14 @@ public class GameMenu {
 
                     switch (action) {
                         case 1:
-                            useAttack(aiden, mortis);
+                            if (isMortisInvisible) {
+                                System.out.println();
+                                System.out.println("\n¡Mortis se ha vuelto invisible y no puedes atacarle!\n");
+
+                                isMortisInvisible = false;
+                            } else {
+                                useAttack(aiden, mortis);
+                            }
 
                             validAction = true;
                             break;
@@ -540,25 +601,33 @@ public class GameMenu {
                 }
             } else {
                 // Turno de Mortis
-                System.out.println(color4 + "¡Es el turno del Jefe Mortis! | Habiliad: (?)");
+                System.out.println(color4 + "¡Es el turno del Jefe Mortis! | Habilidad: (?)");
+
                 monsterAttack(mortis, aiden);
-                mortisHability(mortis, aiden);
+                System.out.println();
+                mortisHability(mortis, aiden, isMortisInvisible);
             }
 
             // Alternar el turno
             turn = !turn;
 
-            // Verificar si el esqueleto fue derrotado
+            // Verificar si Mortis fue derrotado
             if (mortis.getHealth() <= 0) {
                 System.out.println(color10 + "¡¡Aiden ha derrotado a Mortis!!" + reset);
             }
         }
+
+        long endTime = System.nanoTime();
+        long durationInNano = (endTime - startTime);
+        long durationInSeconds = TimeUnit.NANOSECONDS.toSeconds(durationInNano);
+        int timeBonus = calculateTimeBonus(durationInSeconds);
 
         // Resultado final del combate
         if (aiden.getHealth() <= 0) {
             System.out.println();
             System.out.println();
             System.out.println("Aiden ha sido derrotado...");
+
             GameOver.main(null);
         } else {
             System.out.println();
@@ -567,17 +636,28 @@ public class GameMenu {
             System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" + reset);
             System.out.println();
             System.out.println();
+            System.out.println("Tiempo de combate: " + durationInSeconds + " segundos");
+            System.out.println("Bonus de tiempo: " + timeBonus + " puntos");
+            System.out.println("Score total: " + aiden.getScore());
+
+            aiden.setScore(aiden.getScore() + 100);
+            characterController.updateCharacter(aiden);
+
+            System.out.println();
+
+            Winner.main(null);
         }
     }
 
     // SHOW STATUS
     private void displayStatus(Character aiden, Character monster) {
         System.out.println();
-        System.out.println(color2 + "------- ESTADO DEL COMBATE -------");
-        System.out.printf("Aiden - Salud: %d, Fuerza: %d\n", aiden.getHealth(), aiden.getStrength());
+        System.out.println(color2 + "----------- ESTADO DEL COMBATE -----------");
+        System.out.printf("Aiden - Salud: %d, Fuerza: %d, Score: %d \n", aiden.getHealth(), aiden.getStrength(),
+                ((Aiden) aiden).getScore());
         System.out.printf("%s - Salud: %d, Fuerza: %d\n", monster.getName(), monster.getHealth(),
                 monster.getStrength());
-        System.out.println("--------·-------------------------" + reset);
+        System.out.println("------------------------------------------" + reset);
         System.out.println();
     }
 
@@ -653,6 +733,12 @@ public class GameMenu {
         return true;
     }
 
+    // USE ARMOR
+    private void useArmor(Character aiden) {
+        aiden.setHealth(aiden.getHealth() + 60);
+        characterController.updateCharacter(aiden);
+    }
+
     // BACKPACK - SHOW LIST
     private boolean displayBackpack(Character aiden) {
         ResponseEntity<List<Backpack>> backpack = backpackController.retrieveObjects();
@@ -701,7 +787,7 @@ public class GameMenu {
 
             switch (choiseOption) {
                 case 1:
-                    useObject(chosenObject, aiden); // Llama al método `useObject` con la instancia `Backpack`
+                    useObject(chosenObject, aiden);
                     break;
                 case 2:
                     backpackController.deleteObject(chosenObject.getId());
@@ -718,7 +804,7 @@ public class GameMenu {
             }
 
         } catch (InputMismatchException e) {
-            System.out.println("Solo puedes ingresar números :)");
+            System.out.println("WARNING! Solo puedes ingresar números");
             scanner.next();
         }
 
@@ -791,6 +877,7 @@ public class GameMenu {
                     System.out.println();
                     System.out.println("Ignoras el objeto y decides dejarlo en el suelo");
                     System.out.println();
+
                     return null;
                 }
             } else {
@@ -868,6 +955,7 @@ public class GameMenu {
                     System.out.println();
                     System.out.println("Ignoras el objeto y decides dejarlo en el suelo");
                     System.out.println();
+
                     return null;
                 }
             } else {
@@ -896,7 +984,7 @@ public class GameMenu {
 
         switch (gameObject.getName()) {
             case "Espada encantada":
-                aiden.setStrength(aiden.getStrength() + 15);
+                aiden.setStrength(aiden.getStrength() + 5);
                 characterController.updateCharacter(aiden);
                 break;
             case "Poción de vida":
@@ -904,23 +992,25 @@ public class GameMenu {
                 characterController.updateCharacter(aiden);
                 break;
             case "Amuleto mágico":
-                System.out.println("Esta habilidad esta en desarrollo..");
+                System.out.println("ARANCHA... Esta habilidad esta en desarrollo... (-.-)");
                 break;
             case "Capa de invisibilidad":
-                System.out.println("Esta habilidad esta en desarrollo..");
+                specialObjectActived = "Capa de invisibilidad";
+                System.out.println("Te vuelves invisible y eres inmune a TODO el daño durante un turno");
                 break;
             case "Gafas mágicas":
-                System.out.println("Esta habilidad esta en desarrollo..");
+                specialObjectActived = "Gafas mágicas";
+                System.out.println("Gracias a las gafas, puedes detectar lo invisible");
                 break;
             case "Collar de ajos":
-                System.out.println("Esta habilidad esta en desarrollo..");
+                specialObjectActived = "Collar de ajos";
+                System.out.println("¡Usas Collar de Ajos! Muy vulnerable contra los vampiros...");
                 break;
             default:
-                System.out.println("Esta habilidad esta en desarrollo..");
                 break;
         }
 
-        backpackController.deleteObject(gameObject.getId());
+        backpackController.deleteObject((long) gameObject.getId());
     }
 
     // GHOST - INVISIVILITY
@@ -943,26 +1033,67 @@ public class GameMenu {
             System.out.println();
             System.out.println("El vampiro no ha activado su habilidad y no te roba vida...");
             System.out.println();
+
+            return false;
         }
 
         return true;
     }
 
-    private boolean mortisHability(Character monster, Character aiden) {
+    // MORTIS HABILITIES
+    private boolean mortisHability(Character monster, Character aiden, Boolean isMortisInvisible) {
         int randomHability = (int) (Math.random() * 3) + 1;
 
-        if (randomHability == 1) {
-            useAttack(monster, aiden);
+        switch (randomHability) {
+            case 1:
+                // Habilidad de ataque rápido
+                System.out.println("\n¡Mortis usa la habilidad: RAPIDEZ y vuelve a atacarte de nuevo!\n");
+                monsterAttack(monster, aiden);
 
-            System.out.println();
-            System.out.println("¡Mortis ha usado la habilidad: RAPIDEZ y te vuelve a atacar de nuevo!");
-            System.out.println();
-        } else if (randomHability == 2) {
-            return ghostInvisivility();
-        } else if (randomHability == 3) {
-            return recoverHealth(monster);
+                return true;
+
+            case 2:
+                // Habilidad de invisibilidad
+                boolean isInvisible = ghostInvisivility();
+
+                if (isInvisible) {
+                    isMortisInvisible = true;
+                } else {
+                    System.out.println("\nMortis intentó volverse invisible, ¡pero falló!\n");
+                }
+                return isInvisible;
+
+            case 3:
+                // Habilidad de recuperación de salud
+                boolean hasRecovered = recoverHealth(monster);
+
+                if (hasRecovered) {
+                    System.out.println("\n¡Mortis te ha mordido y ha recuperado parte de su salud!\n");
+                } else {
+                    System.out.println("\nMortis intentó recuperar salud, ¡pero no ha podido!\n");
+                }
+                return hasRecovered;
+
+            default:
+                // Este caso no debería ocurrir debido a la generación de `randomHability`, pero
+                // lo incluimos como precaución.
+                System.out.println("Habilidad no reconocida.");
+                return false;
         }
+    }
 
-        return false;
+    // TIMEBONUS
+    private int calculateTimeBonus(long durationInSeconds) {
+        // Si el combate dura menos de 60 segundos, se otorga un bonus máximo de 50
+        // puntos
+        if (durationInSeconds < 60) {
+            return 50;
+            // El bonus disminuye linealmente hasta 0 puntos si el combate dura 180 segundos
+            // o más
+        } else if (durationInSeconds >= 180) {
+            return 0;
+        } else {
+            return (int) (50 - ((durationInSeconds - 60) * 50 / 120));
+        }
     }
 }

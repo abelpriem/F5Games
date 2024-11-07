@@ -8,7 +8,7 @@ public class Ghost {
 
         System.out.println();
         System.out.println(azul + "- - - - - - - - - - -" + reset);
-        System.out.println("    Jefe: Fantasma");
+        System.out.println("    Monstruo: Fantasma");
         System.out.println(azul + "- - - - - - - - - - -");
         System.out.print("     .-----.\n" + //
                 "   .' -   - '.\n" + //

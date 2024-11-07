@@ -3,9 +3,9 @@ package org.f5games.aiden_game.assets.ascii;
 public class Graveyard {
     public static void ascii(String[] args) {
 
-        String color2 = "\033[35m"; // magenta
-        String color7 = "\033[93m"; // amarillo
-        String reset = "\033[0m"; // blanco
+        String color2 = "\033[35m";
+        String color7 = "\033[93m";
+        String reset = "\033[0m";
 
         System.out.println();
         System.out.println(color2 + "         - - - - - - - - - - - - - - - - - - - - - - - - - - - - -");
@@ -17,6 +17,6 @@ public class Graveyard {
                 "              |R.I.P|   //  /  /     |S|.         |R.I.P|\n" + //
                 "         \\vV,,|_____|V,//_____/VvV,v,|_|/,,vhjwv/,|_____|V\\vV,,");
         System.out.println();
-        System.out.println("         - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"+ reset);
+        System.out.println("         - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" + reset);
     }
 }

@@ -3,8 +3,9 @@ package org.f5games.aiden_game.assets.ascii;
 public class GameOver {
         public static void ascii(String[] args) {
 
-                String color7 = "\033[93m"; // amarillo
-                String reset = "\033[0m"; // blanco
+                
+                String color7 = "\033[93m";
+                String reset = "\033[0m";
 
                 System.out.println();
                 System.out

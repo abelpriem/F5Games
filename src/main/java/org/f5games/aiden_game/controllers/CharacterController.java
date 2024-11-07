@@ -11,15 +11,14 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-
 @RestController
 public class CharacterController {
     private CharacterService characterservice;
 
-    public CharacterController (CharacterService characterService) {
+    public CharacterController(CharacterService characterService) {
         this.characterservice = characterService;
     }
-    
+
     @GetMapping(path = "/character")
     public List<Character> getCharacter() {
         return characterservice.getAll();
@@ -27,6 +26,7 @@ public class CharacterController {
 
     @PutMapping(path = "/character")
     public ResponseEntity<Character> updateCharacter(@RequestBody Character character) {
-        return new ResponseEntity<>(characterservice.updateOne(character),HttpStatus.OK);
+        return new ResponseEntity<>(characterservice.updateOne(character), HttpStatus.OK);
     }
+
 }

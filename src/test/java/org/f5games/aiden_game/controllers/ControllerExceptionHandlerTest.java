@@ -2,6 +2,7 @@ package org.f5games.aiden_game.controllers;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.f5games.aiden_game.ControllerExceptionHandler;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.dao.DataIntegrityViolationException;

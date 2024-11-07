@@ -4,6 +4,6 @@ import org.f5games.aiden_game.assets.ascii.Forest;
 
 public class Level1 {
     public static void main(String[] args) {
-        Forest.main(args);
+        Forest.ascii(args);
     }
 }

@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.f5games.aiden_game.exceptions.InvalidDataException;
+import org.f5games.aiden_game.exceptions.ResourceNotFoundException;
 import org.f5games.aiden_game.models.Backpack;
 import org.f5games.aiden_game.models.GameObject;
 import org.f5games.aiden_game.repository.BackpackRepository;
@@ -53,20 +55,20 @@ public class BackpackServiceTest {
     public void testInsertOne_WhenGameObjectIdDoesNotExist(){
         Long objectId = 1l;
         when(gameObjectRepository.findById(objectId)).thenReturn(Optional.empty());
-        assertThrows(IllegalArgumentException.class,() -> {backpackService.insertOne(objectId);});
+        assertThrows(InvalidDataException.class,() -> {backpackService.insertOne(objectId);});
     }
 
     @Test
     public void testInsertOne_WhenGameObjectIdIsNull(){
         Long objectId = null;
-        assertThrows(IllegalArgumentException.class,() -> {backpackService.insertOne(objectId);});
+        assertThrows(InvalidDataException.class,() -> {backpackService.insertOne(objectId);});
     }
 
     @Test
     public void testInsertOne_WhenBackpackIsFull(){
         Long objectId = 1L;
         when(backpackRepository.count()).thenReturn(3L);
-        assertThrows(IllegalArgumentException.class,() -> {backpackService.insertOne(objectId);});
+        assertThrows(InvalidDataException.class,() -> {backpackService.insertOne(objectId);});
     }
 
     @Test
@@ -82,26 +84,26 @@ public class BackpackServiceTest {
     public void testDeleteOne_WhenBackpackIdDoesNotExist(){
         Long id = 1L;
         when(backpackRepository.findById(id)).thenReturn(Optional.empty());
-        assertThrows(IllegalArgumentException.class,() -> {backpackService.deleteOne(id);});
+        assertThrows(ResourceNotFoundException.class,() -> {backpackService.deleteOne(id);});
     }
 
     @Test
     public void testDeleteOne_WhenBackpackIdIsNull(){
-        assertThrows(IllegalArgumentException.class,() -> {backpackService.deleteOne(null);});
+        assertThrows(InvalidDataException.class,() -> {backpackService.deleteOne(null);});
     }
 
     @Test
     public void testUpdateOne_WhenBackpackIdIsNull(){
         Long id = null;
         Long objectId = 1L;
-        assertThrows(IllegalArgumentException.class,() -> {backpackService.updateOne(id, objectId);});
+        assertThrows(InvalidDataException.class,() -> {backpackService.updateOne(id, objectId);});
     }
 
     @Test
     public void testUpdateOne_WhenGameObjectIdIsNull(){
         Long id = 1L;
         Long objectId = null;
-        assertThrows(IllegalArgumentException.class,() -> {backpackService.updateOne(id, objectId);});
+        assertThrows(InvalidDataException.class,() -> {backpackService.updateOne(id, objectId);});
     }
 
     @Test
@@ -111,7 +113,7 @@ public class BackpackServiceTest {
         Backpack b1 = new Backpack(1L,GameObject.builder().id(1L).name("mockObject").description("mockDescription").special(true).build());
         when(gameObjectRepository.findById(objectId)).thenReturn(Optional.empty());
         when(backpackRepository.findById(id)).thenReturn(Optional.of(b1));
-        assertThrows(IllegalArgumentException.class, () -> {backpackService.updateOne(id, objectId);});
+        assertThrows(InvalidDataException.class, () -> {backpackService.updateOne(id, objectId);});
     }
 
     @Test
@@ -119,7 +121,7 @@ public class BackpackServiceTest {
         Long id = 1L;
         Long objectId = 1L;
         when(backpackRepository.findById(id)).thenReturn(Optional.empty());
-        assertThrows(IllegalArgumentException.class, () -> {backpackService.updateOne(id, objectId);});
+        assertThrows(ResourceNotFoundException.class, () -> {backpackService.updateOne(id, objectId);});
     }
 
     @Test

@@ -2,6 +2,7 @@ package org.f5games.aiden_game.services;
 
 import java.util.List;
 
+import org.f5games.aiden_game.exceptions.ResourceNotFoundException;
 import org.f5games.aiden_game.models.Character;
 import org.f5games.aiden_game.repository.CharacterRepository;
 import org.springframework.stereotype.Service;
@@ -23,12 +24,12 @@ public class CharacterService {
         if (characterRepository.existsById(character.getId())) {
             return characterRepository.save(character);
         } else {
-            throw new IllegalArgumentException("character identifier" + character.getId() + "doesn't exist");
+            throw new ResourceNotFoundException("character identifier" + character.getId() + "doesn't exist");
         }
     }
 
     public Character getCharacterById(Long id) {
         return characterRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("No se encontró un personaje con el ID: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("No se encontró un personaje con el ID: " + id));
     }
 }

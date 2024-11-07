@@ -1,12 +1,11 @@
-// Source code is decompiled from a .class file using FernFlower decompiler.
 package org.f5games.aiden_game.assets.ascii;
 
 public class Title {
 
     public static void ascii(String[] args) {
 
-        String color5 = "\033[92m"; // verde
-        String reset = "\033[0m"; // blanco
+        String color5 = "\033[92m";
+        String reset = "\033[0m";
 
         System.out.println();
         System.out.println(color5 + "         - - - - - - - - - - - - - - - - - - - - - - -");

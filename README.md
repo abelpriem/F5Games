@@ -25,7 +25,8 @@ Esta es una aplicación de Spring Boot que incluye una API REST con operaciones 
 ![Diagrama de Flujo](assets/F5Games%20Diagram3.png)
 
 ## INSTALACION
-Descargar y ejecutar AidenGameApplication.exe
+Requisito: tener JDK 21 instalado.
+Descargar y ejecutar el archivo.jar en el apartado releases con el comando java -jar
 
 ## GUIA DE USO
 

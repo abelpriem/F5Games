@@ -615,7 +615,7 @@ public class GameMenu {
             System.out.println();
             System.out.println("Tiempo de combate: " + durationInSeconds + " segundos");
             System.out.println("Bonus de tiempo: " + timeBonus + " puntos");
-            
+
             aiden.setScore(aiden.getScore() + 100);
             characterController.updateCharacter(aiden);
             System.out.println("Score total de la partida: " + aiden.getScore());
@@ -973,7 +973,7 @@ public class GameMenu {
                 break;
         }
 
-        backpackController.deleteObject((long) gameObject.getId());
+        backpackController.deleteObject((long) chosenObject.getId());
     }
 
     private boolean ghostInvisivility() {

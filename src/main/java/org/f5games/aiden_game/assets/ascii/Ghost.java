@@ -7,9 +7,9 @@ public class Ghost {
         String reset = "\033[0m";
 
         System.out.println();
-        System.out.println(azul + "- - - - - - - - - - -" + reset);
-        System.out.println("    Jefe: Fantasma");
-        System.out.println(azul + "- - - - - - - - - - -");
+        System.out.println(azul + "         - - - - - - - - - - -" + reset);
+        System.out.println("             Jefe: Fantasma");
+        System.out.println(azul + "         - - - - - - - - - - -");
         System.out.print("     .-----.\n" + //
                 "   .' -   - '.\n" + //
                 "  /  .-. .-.  \\\n" + //

@@ -28,23 +28,9 @@ public class CharacterService {
         }
     }
 
-    public Character attack(Character attacker, Character target ) {
-
-        if ((characterRepository.existsById(attacker.getId())) && (characterRepository.existsById(target.getId()))) {
-        
-            target.setHealth(target.getHealth()- attacker.getStrength());
-            
-            return characterRepository.save(target);
-
-        } else {
-            throw new IllegalArgumentException("Character identifier" + attacker.getId() + " or " + target.getId() + "don't exist");
-        }
-    }
-
     public Character getCharacterById(Long id) {
         return characterRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No se encontró un personaje con el ID: " + id));
     }
 
-    
 }

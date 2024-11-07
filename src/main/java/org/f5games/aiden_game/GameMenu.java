@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import org.f5games.aiden_game.assets.ascii.Castle;
 import org.f5games.aiden_game.assets.ascii.FinalBoss;
+import org.f5games.aiden_game.assets.ascii.Forest;
 import org.f5games.aiden_game.assets.ascii.GameOver;
 import org.f5games.aiden_game.assets.ascii.Ghost;
 import org.f5games.aiden_game.assets.ascii.Graveyard;
@@ -138,6 +139,7 @@ public class GameMenu {
         int countSkeleton = 1;
         boolean turn = false;
 
+        Forest.ascii(null);
         System.out.println();
         System.out.println("Algo se mueve en la oscuridad de la noche...");
         System.out.println("Se escuchan sonidos emitidos por seres extraños...");

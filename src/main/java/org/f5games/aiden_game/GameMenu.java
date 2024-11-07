@@ -355,7 +355,7 @@ public class GameMenu {
             if (ghost.getHealth() <= 0) {
                 System.out.println(color10 + "¡¡Aiden ha derrotado al fantasma!!" + reset);
 
-                GameObject objectToAdd = findSpecialObject(ghost);
+                GameObject objectToAdd = findNoSpecialObject(ghost);
             }
         }
 

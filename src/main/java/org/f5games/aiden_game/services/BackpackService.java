@@ -16,11 +16,12 @@ public class BackpackService {
     private final BackpackRepository backpackRepository;
     private final GameObjectRepository gameObjectRepository;
 
-    public BackpackService(BackpackRepository backpackRepository,GameObjectRepository gameObjectRepository) {
+    public BackpackService(BackpackRepository backpackRepository, GameObjectRepository gameObjectRepository) {
         this.backpackRepository = backpackRepository;
         this.gameObjectRepository = gameObjectRepository;
     }
-    public List<Backpack> getAll(){
+
+    public List<Backpack> getAll() {
         return backpackRepository.findAll();
     }
 

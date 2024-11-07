@@ -1,7 +1,7 @@
 package org.f5games.aiden_game.assets.ascii;
 
 public class GameOver {
-        public static void main(String[] args) {
+        public static void ascii(String[] args) {
 
                 String azul = "\033[1;36m";
                 String reset = "\033[0m";
@@ -23,7 +23,8 @@ public class GameOver {
                                                 "        \\/         \\/         \\/         \\/          \\/                    \\/         \\/ ");
                 System.out.println();
                 System.out
-                                .println("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" + reset);
+                                .println("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+                                                + reset);
                 System.out.println();
         }
 }

@@ -26,7 +26,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 public class CharacterController {
     private CharacterService characterservice;
 
-    public CharacterController (CharacterService characterService) {
+    public CharacterController(CharacterService characterService) {
         this.characterservice = characterService;
     }
     
@@ -61,4 +61,5 @@ public class CharacterController {
         @RequestBody Character character) {
         return new ResponseEntity<>(characterservice.updateOne(character),HttpStatus.OK);
     }
+
 }

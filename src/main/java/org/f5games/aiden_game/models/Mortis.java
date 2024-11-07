@@ -5,5 +5,5 @@ import jakarta.persistence.Entity;
 @Entity
 @DiscriminatorValue("MORTIS")
 public class Mortis extends Character {
-   
+
 }

@@ -29,13 +29,6 @@ public class CharacterController {
         return new ResponseEntity<>(characterservice.updateOne(character),HttpStatus.OK);
     }
 
-    @PutMapping(path = "/character/attack")
-    public ResponseEntity<Character> attack(@RequestBody Character character,@RequestBody Character target) {
-        return new ResponseEntity<>(characterservice.attack(character,target),HttpStatus.OK);
-    }
-
-        
-        
 }
 
 

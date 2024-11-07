@@ -20,5 +20,4 @@ public class Aiden extends Character {
     @Column(nullable = false)
     private int score;
 
-    
 }

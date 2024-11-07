@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.f5games.aiden_game.exceptions.ResourceNotFoundException;
+import org.f5games.aiden_game.models.Backpack;
 import org.f5games.aiden_game.models.Character;
 import org.f5games.aiden_game.repository.CharacterRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -82,7 +82,7 @@ public class CharacterServiceTest {
 
 
         when(characterRepository.existsById(id)).thenReturn(false);
-        assertThrows(ResourceNotFoundException.class, () -> {
+        assertThrows(IllegalArgumentException.class, () -> {
             characterService.updateOne(mockCharacter2);});
         
     }
@@ -102,7 +102,7 @@ public class CharacterServiceTest {
 
     when(characterRepository.findById(id)).thenReturn(Optional.empty());
 
-    assertThrows(ResourceNotFoundException.class, () -> {
+    assertThrows(IllegalArgumentException.class, () -> {
         characterService.getCharacterById(id);
     });
 }

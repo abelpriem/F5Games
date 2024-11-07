@@ -33,7 +33,6 @@ public class MortiTest {
         assertTrue(output.contains("Jefe Final: Morti"));
         assertTrue(output.contains(".            )        )"));
         assertTrue(output.contains("( \\   | /  ___   ( \\/     ___   \\ | ( ("));
-        //assertTrue(output.contains("==\ "=="));
         assertTrue(output.contains("\\.)  |/  /   \\__      __/   \\   \\|  )"));
     }
 }

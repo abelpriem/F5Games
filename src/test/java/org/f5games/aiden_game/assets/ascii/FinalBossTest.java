@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import org.f5games.aiden_game.assets.ascii.FinalBoss;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,13 +27,13 @@ public class FinalBossTest {
 
     @Test
     public void testAsciiArt() {
-        // Llamar al método que imprime el arte ASCII
+       
         FinalBoss.ascii(null);
 
-        // Obtener la salida de la consola
+        
         String output = outContent.toString();
 
-        // Verificar que la salida contiene partes específicas del arte ASCII
+       
         assertTrue(output.contains("██████╗  ██████╗ ███████╗███████╗"));
         assertTrue(output.contains("██╔══██╗██╔═══██╗██╔════╝██╔════╝"));
         assertTrue(output.contains("██████╔╝██║   ██║███████╗███████╗"));

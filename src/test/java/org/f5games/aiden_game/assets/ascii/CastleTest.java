@@ -26,13 +26,13 @@ public class CastleTest {
 
     @Test
     public void testAsciiArt() {
-        // Llamar al método que imprime el arte ASCII
+        
         Castle.ascii(null);
 
-        // Obtener la salida de la consola
+       
         String output = outContent.toString();
 
-        // Verificar que la salida contiene partes específicas del arte ASCII
+       
         assertTrue(output.contains("Castillo de Morti"));
         assertTrue(output.contains("Nivel 3: Nivel Final"));
         assertTrue(output.contains("[_______]"));

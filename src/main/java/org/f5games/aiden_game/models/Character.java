@@ -16,17 +16,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-@JsonTypeInfo(
-    use = JsonTypeInfo.Id.NAME,
-    include = JsonTypeInfo.As.PROPERTY,
-    property = "entity_class"
-)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "entity_class")
 @JsonSubTypes({
-    @JsonSubTypes.Type(value = Aiden.class, name = "AIDEN"),
-    @JsonSubTypes.Type(value = Skeleton.class, name = "SKELETON"),
-    @JsonSubTypes.Type(value = Ghost.class, name = "GHOST"),
-    @JsonSubTypes.Type(value = Vampire.class, name = "VAMPIRE"),
-    @JsonSubTypes.Type(value = Mortis.class, name = "MORTIS")
+        @JsonSubTypes.Type(value = Aiden.class, name = "AIDEN"),
+        @JsonSubTypes.Type(value = Skeleton.class, name = "SKELETON"),
+        @JsonSubTypes.Type(value = Ghost.class, name = "GHOST"),
+        @JsonSubTypes.Type(value = Vampire.class, name = "VAMPIRE"),
+        @JsonSubTypes.Type(value = Mortis.class, name = "MORTIS")
 })
 @Entity
 @DiscriminatorColumn(name = "entity_class", discriminatorType = DiscriminatorType.STRING)

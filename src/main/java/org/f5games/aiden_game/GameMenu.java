@@ -253,7 +253,6 @@ public class GameMenu {
             System.out.println();
             System.out.println("Tiempo de combate: " + durationInSeconds + " segundos");
             System.out.println("Bonus de tiempo: " + timeBonus + " puntos");
-            System.out.println("Score total: " + aiden.getScore());
 
             aiden.setStrength(aiden.getStrength() + 10);
             characterController.updateCharacter(aiden);
@@ -370,7 +369,6 @@ public class GameMenu {
             System.out.println();
             System.out.println("Tiempo de combate: " + durationInSeconds + " segundos");
             System.out.println("Bonus de tiempo: " + timeBonus + " puntos");
-            System.out.println("Score total: " + aiden.getScore());
 
             aiden.setStrength(aiden.getStrength() + 15);
             characterController.updateCharacter(aiden);
@@ -485,7 +483,6 @@ public class GameMenu {
             System.out.println();
             System.out.println("Tiempo de combate: " + durationInSeconds + " segundos");
             System.out.println("Bonus de tiempo: " + timeBonus + " puntos");
-            System.out.println("Score total: " + aiden.getScore());
 
             aiden.setStrength(aiden.getStrength() + 20);
             aiden.setHealth(aiden.getHealth() + (aiden.getHealth() / 2));
@@ -618,10 +615,10 @@ public class GameMenu {
             System.out.println();
             System.out.println("Tiempo de combate: " + durationInSeconds + " segundos");
             System.out.println("Bonus de tiempo: " + timeBonus + " puntos");
-            System.out.println("Score total: " + aiden.getScore());
-
+            
             aiden.setScore(aiden.getScore() + 100);
             characterController.updateCharacter(aiden);
+            System.out.println("Score total de la partida: " + aiden.getScore());
 
             System.out.println();
 

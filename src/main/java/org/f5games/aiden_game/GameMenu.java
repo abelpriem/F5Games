@@ -11,12 +11,12 @@ import org.f5games.aiden_game.assets.ascii.Castle;
 import org.f5games.aiden_game.assets.ascii.FinalBoss;
 import org.f5games.aiden_game.assets.ascii.Forest;
 import org.f5games.aiden_game.assets.ascii.GameOver;
-import org.f5games.aiden_game.assets.ascii.Ghost;
+import org.f5games.aiden_game.assets.ascii.Ghosts;
 import org.f5games.aiden_game.assets.ascii.Graveyard;
 import org.f5games.aiden_game.assets.ascii.Morti;
 import org.f5games.aiden_game.assets.ascii.Skeletons;
 import org.f5games.aiden_game.assets.ascii.Title;
-import org.f5games.aiden_game.assets.ascii.Vampire;
+import org.f5games.aiden_game.assets.ascii.Vampires;
 import org.f5games.aiden_game.assets.ascii.Winner;
 import org.f5games.aiden_game.controllers.BackpackController;
 import org.f5games.aiden_game.controllers.CharacterController;
@@ -25,8 +25,10 @@ import org.f5games.aiden_game.models.Aiden;
 import org.f5games.aiden_game.models.Backpack;
 import org.f5games.aiden_game.models.Character;
 import org.f5games.aiden_game.models.GameObject;
+import org.f5games.aiden_game.models.Ghost;
 import org.f5games.aiden_game.models.Mortis;
 import org.f5games.aiden_game.models.Skeleton;
+import org.f5games.aiden_game.models.Vampire;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
@@ -98,16 +100,14 @@ public class GameMenu {
 
             switch (choice) {
                 case 1:
-                    // Obtenemos los personajes desde el servicio
+                    // Obtenemos los personajes desde el controlador
                     List<Character> personajes = characterController.getCharacter();
+
                     Aiden aiden = (Aiden) personajes.get(0);
                     Skeleton skeleton = (Skeleton) personajes.get(1);
-                    org.f5games.aiden_game.models.Ghost ghost = (org.f5games.aiden_game.models.Ghost) personajes
-                            .get(2);
-                    org.f5games.aiden_game.models.Vampire vampire = (org.f5games.aiden_game.models.Vampire) personajes
-                            .get(3);
-                    org.f5games.aiden_game.models.Mortis mortis = (org.f5games.aiden_game.models.Mortis) personajes
-                            .get(4);
+                    Ghost ghost = (Ghost) personajes.get(2);
+                    Vampire vampire = (Vampire) personajes.get(3);
+                    Mortis mortis = (Mortis) personajes.get(4);
 
                     ResponseEntity<List<Backpack>> backpack = backpackController.retrieveObjects();
                     List<GameObject> object = objectController.getObjects();
@@ -280,7 +280,7 @@ public class GameMenu {
         System.out.println("La niebla, las tumbas y los aullidos te hacen tener escalofríos...");
         System.out.println("Bu... bu... BUUUUUUU!");
         System.out.println("¡Un ruido a tus espaldas te sobresalta!");
-        Ghost.ascii(null);
+        Ghosts.ascii(null);
         System.out.println("\n \n               ¡Combate iniciado!");
         System.out.println();
         long startTime = System.nanoTime();
@@ -404,7 +404,7 @@ public class GameMenu {
         System.out.println(
                 "Las paredes de piedra, las gárgolas en las cornisas, la gran alfombra roja y los candelabros le dejan sin aliento...");
         System.out.println("De pronto... ¡un aleteo muy fuerte y un olor a sed de sangre le sorprende de golpe!");
-        Vampire.ascii(null);
+        Vampires.ascii(null);
         System.out.println("\n \n               ¡Combate iniciado!");
         System.out.println();
         long startTime = System.nanoTime();

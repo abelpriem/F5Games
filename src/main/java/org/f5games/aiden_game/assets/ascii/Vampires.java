@@ -1,15 +1,15 @@
 package org.f5games.aiden_game.assets.ascii;
 
-public class Vampire {
+public class Vampires {
     public static void ascii(String[] args) {
 
-        String color2 = "\033[35m";  // magenta
-        String color7 = "\033[93m";  // amarillo
-        String reset = "\033[0m";  // blanco
+        String color2 = "\033[35m"; // magenta
+        String color7 = "\033[93m"; // amarillo
+        String reset = "\033[0m"; // blanco
 
         System.out.println();
         System.out.println(color2 + "         - - - - - - - - - - - - - - - - - - - - - -");
-        System.out.println(color7+ "                       Jefe: Vampiro");
+        System.out.println(color7 + "                       Jefe: Vampiro");
         System.out.println(color2 + "         - - - - - - - - - - - - - - - - - - - - - -");
         System.out.print("                          /######\\\n" + //
                 "                        /##########\\\n" + //

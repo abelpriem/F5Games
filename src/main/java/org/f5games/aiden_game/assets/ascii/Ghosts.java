@@ -1,6 +1,6 @@
 package org.f5games.aiden_game.assets.ascii;
 
-public class Ghost {
+public class Ghosts {
     public static void ascii(String[] args) {
 
         String color2 = "\033[35m"; // magenta

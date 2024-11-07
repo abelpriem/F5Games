@@ -25,4 +25,5 @@ public class Backpack {
     @ManyToOne
     @JoinColumn(name = "game_object_id")
     private GameObject gameObject;
+
 }

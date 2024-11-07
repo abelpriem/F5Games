@@ -301,7 +301,7 @@ public class GameMenu {
                         case 1:
                             if (ghostInvisivility()) {
                                 System.out.println();
-                                System.out.println("¡El fantasma se ha vuelvo invisible y no puedes atacarle!");
+                                System.out.println("¡El fantasma se ha vuelto invisible y no puedes atacarle!");
                             } else {
                                 useAttack(aiden, ghost);
                             }
@@ -616,7 +616,7 @@ public class GameMenu {
             System.out.println("Tiempo de combate: " + durationInSeconds + " segundos");
             System.out.println("Bonus de tiempo: " + timeBonus + " puntos");
 
-            aiden.setScore(aiden.getScore() + 100);
+            aiden.setScore(aiden.getScore() + timeBonus + 100);
             characterController.updateCharacter(aiden);
             System.out.println("Score total de la partida: " + aiden.getScore());
 
@@ -653,7 +653,7 @@ public class GameMenu {
         turnsUntilPowerAttackAvailable = 3;
 
         System.out.println();
-        System.out.printf("%s usa ataque poderoso contra %s\n", attacker.getName(), target.getName());
+        System.out.printf("%s usa ataque potente contra %s\n", attacker.getName(), target.getName());
 
         target.setHealth(target.getHealth() - (attacker.getStrength() + 10));
         characterController.updateCharacter(target);
@@ -959,15 +959,15 @@ public class GameMenu {
                 break;
             case "Capa de invisibilidad":
                 specialObjectActived = "Capa de invisibilidad";
-                System.out.println("Te vuelves invisible y eres inmune a TODO el daño durante un turno");
+                System.out.println("¿Enserio tu crees que nos dió tiempo a implementar esta habilidad?");
                 break;
             case "Gafas mágicas":
                 specialObjectActived = "Gafas mágicas";
-                System.out.println("Gracias a las gafas, puedes detectar lo invisible");
+                System.out.println("No sirven para nada pero te hacen ver mas guapo :)");
                 break;
             case "Collar de ajos":
                 specialObjectActived = "Collar de ajos";
-                System.out.println("¡Usas Collar de Ajos! Muy vulnerable contra los vampiros...");
+                System.out.println("Bueno para cocinar alimentos, lástima que no sirva para el combate...");
                 break;
             default:
                 break;
@@ -985,14 +985,14 @@ public class GameMenu {
 
         if (result) {
             System.out.println();
-            System.out.println("El vampiro te ha mordido y se recupera " + recovered.getStrength() + " puntos de vida");
+            System.out.println("El "+ recovered.getName() + " te ha mordido y se recupera " + recovered.getStrength() + " puntos de vida");
             System.out.println();
 
             recovered.setHealth(recovered.getHealth() + recovered.getStrength());
             characterController.updateCharacter(recovered);
         } else {
             System.out.println();
-            System.out.println("El vampiro no ha activado su habilidad y no te roba vida...");
+            System.out.println("El "+ recovered.getName() +" no ha activado su habilidad y no te roba vida...");
             System.out.println();
 
             return false;
@@ -1015,6 +1015,7 @@ public class GameMenu {
                 boolean isInvisible = ghostInvisivility();
 
                 if (isInvisible) {
+                    System.out.println("\n Mortis se ha vuelto invisible y no puedes atacarlo !! \n");
                     isMortisInvisible = true;
                 } else {
                     System.out.println("\nMortis intentó volverse invisible, ¡pero falló!\n");
@@ -1026,8 +1027,6 @@ public class GameMenu {
 
                 if (hasRecovered) {
                     System.out.println("\n¡Mortis te ha mordido y ha recuperado parte de su salud!\n");
-                } else {
-                    System.out.println("\nMortis intentó recuperar salud, ¡pero no ha podido!\n");
                 }
                 return hasRecovered;
 

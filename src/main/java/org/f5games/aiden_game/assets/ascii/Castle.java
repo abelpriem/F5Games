@@ -11,7 +11,7 @@ public class Castle {
         System.out.println(color4 + "         - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -");
         System.out.print("            /\\                                                        /\\\n" + //
                 "           |  |                                                      |  |\n" + //
-                "          /----\\           " + color7 + "       Castillo de Morti" + color4
+                "          /----\\           " + color7 + "       Castillo de Mortis" + color4
                 + "                 /----\\\n" + //
                 "         [______]        " + color7 + "       Nivel 3: Nivel Final " + color4
                 + "              [______]\n" + //
